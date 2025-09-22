@@ -1,0 +1,518 @@
+2025-08-18 18:57:52,035 [INFO] Log file: output\raw_data\hsi_gainer.log
+2025-08-18 18:57:52,035 [INFO] Console logging enabled: False
+2025-08-18 18:57:52,035 [INFO] Configured end-date: latest
+2025-08-18 18:57:52,050 [INFO] Loaded HSI constituents from data\AASTOCKS_Export_2025-8-10.xlsx: 85 rows
+2025-08-18 18:57:52,052 [INFO] ==== [00001.HK 長和] yfinance ticker = 0001.HK | end_date=latest
+2025-08-18 18:57:52,052 [INFO] Downloading from yfinance: 0001.HK (end=latest)
+2025-08-18 18:57:52,395 [INFO] Got 90 rows for 0001.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:52,406 [INFO] Raw saved: output\raw_data\Gainer_HSI\0001.HK.csv
+2025-08-18 18:57:52,409 [INFO] Latest(as_of): 2025-08-18 Close=51.150002 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=48.950001
+2025-08-18 18:57:52,409 [INFO] Return = 51.150002 - 48.950001 = 2.200001 | Volumn(2025-07-18, 2025-08-18] = 184070144 | Gainer = 404954457.234375
+2025-08-18 18:57:52,409 [INFO] ==== [00002.HK 中電控股] yfinance ticker = 0002.HK | end_date=latest
+2025-08-18 18:57:52,410 [INFO] Downloading from yfinance: 0002.HK (end=latest)
+2025-08-18 18:57:52,693 [INFO] Got 90 rows for 0002.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:52,695 [INFO] Raw saved: output\raw_data\Gainer_HSI\0002.HK.csv
+2025-08-18 18:57:52,697 [INFO] Latest(as_of): 2025-08-18 Close=66.099998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=66.250000
+2025-08-18 18:57:52,697 [INFO] Return = 66.099998 - 66.250000 = -0.150002 | Volumn(2025-07-18, 2025-08-18] = 89341529 | Gainer = -13401365.674355
+2025-08-18 18:57:52,698 [INFO] ==== [00003.HK 香港中華煤氣] yfinance ticker = 0003.HK | end_date=latest
+2025-08-18 18:57:52,699 [INFO] Downloading from yfinance: 0003.HK (end=latest)
+2025-08-18 18:57:52,980 [INFO] Got 90 rows for 0003.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:52,992 [INFO] Raw saved: output\raw_data\Gainer_HSI\0003.HK.csv
+2025-08-18 18:57:52,995 [INFO] Latest(as_of): 2025-08-18 Close=7.060000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=6.770000
+2025-08-18 18:57:52,995 [INFO] Return = 7.060000 - 6.770000 = 0.290000 | Volumn(2025-07-18, 2025-08-18] = 427741274 | Gainer = 124044953.142965
+2025-08-18 18:57:52,996 [INFO] ==== [00005.HK 匯豐控股] yfinance ticker = 0005.HK | end_date=latest
+2025-08-18 18:57:52,996 [INFO] Downloading from yfinance: 0005.HK (end=latest)
+2025-08-18 18:57:53,255 [INFO] Got 90 rows for 0005.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:53,257 [INFO] Raw saved: output\raw_data\Gainer_HSI\0005.HK.csv
+2025-08-18 18:57:53,259 [INFO] Latest(as_of): 2025-08-18 Close=98.449997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=98.150002
+2025-08-18 18:57:53,259 [INFO] Return = 98.449997 - 98.150002 = 0.299995 | Volumn(2025-07-18, 2025-08-18] = 401507266 | Gainer = 120450341.845596
+2025-08-18 18:57:53,260 [INFO] ==== [00006.HK 電能實業] yfinance ticker = 0006.HK | end_date=latest
+2025-08-18 18:57:53,260 [INFO] Downloading from yfinance: 0006.HK (end=latest)
+2025-08-18 18:57:53,543 [INFO] Got 90 rows for 0006.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:53,545 [INFO] Raw saved: output\raw_data\Gainer_HSI\0006.HK.csv
+2025-08-18 18:57:53,547 [INFO] Latest(as_of): 2025-08-18 Close=50.799999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=50.150002
+2025-08-18 18:57:53,547 [INFO] Return = 50.799999 - 50.150002 = 0.649998 | Volumn(2025-07-18, 2025-08-18] = 77912216 | Gainer = 50642762.073090
+2025-08-18 18:57:53,548 [INFO] ==== [00011.HK 恆生銀行] yfinance ticker = 0011.HK | end_date=latest
+2025-08-18 18:57:53,548 [INFO] Downloading from yfinance: 0011.HK (end=latest)
+2025-08-18 18:57:53,850 [INFO] Got 90 rows for 0011.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:53,862 [INFO] Raw saved: output\raw_data\Gainer_HSI\0011.HK.csv
+2025-08-18 18:57:53,864 [INFO] Latest(as_of): 2025-08-18 Close=112.500000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=122.599998
+2025-08-18 18:57:53,864 [INFO] Return = 112.500000 - 122.599998 = -10.099998 | Volumn(2025-07-18, 2025-08-18] = 57506188 | Gainer = -580812411.052521
+2025-08-18 18:57:53,865 [INFO] ==== [00012.HK 恆基地產] yfinance ticker = 0012.HK | end_date=latest
+2025-08-18 18:57:53,865 [INFO] Downloading from yfinance: 0012.HK (end=latest)
+2025-08-18 18:57:54,135 [INFO] Got 90 rows for 0012.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:54,138 [INFO] Raw saved: output\raw_data\Gainer_HSI\0012.HK.csv
+2025-08-18 18:57:54,141 [INFO] Latest(as_of): 2025-08-18 Close=26.980000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=26.450001
+2025-08-18 18:57:54,141 [INFO] Return = 26.980000 - 26.450001 = 0.529999 | Volumn(2025-07-18, 2025-08-18] = 161541114 | Gainer = 85616593.226257
+2025-08-18 18:57:54,142 [INFO] ==== [00016.HK 新鴻基地產] yfinance ticker = 0016.HK | end_date=latest
+2025-08-18 18:57:54,142 [INFO] Downloading from yfinance: 0016.HK (end=latest)
+2025-08-18 18:57:54,422 [INFO] Got 90 rows for 0016.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:54,434 [INFO] Raw saved: output\raw_data\Gainer_HSI\0016.HK.csv
+2025-08-18 18:57:54,437 [INFO] Latest(as_of): 2025-08-18 Close=89.849998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=90.900002
+2025-08-18 18:57:54,437 [INFO] Return = 89.849998 - 90.900002 = -1.050003 | Volumn(2025-07-18, 2025-08-18] = 83557198 | Gainer = -87735312.896332
+2025-08-18 18:57:54,438 [INFO] ==== [00027.HK 銀河娛樂] yfinance ticker = 0027.HK | end_date=latest
+2025-08-18 18:57:54,438 [INFO] Downloading from yfinance: 0027.HK (end=latest)
+2025-08-18 18:57:54,759 [INFO] Got 90 rows for 0027.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:54,762 [INFO] Raw saved: output\raw_data\Gainer_HSI\0027.HK.csv
+2025-08-18 18:57:54,764 [INFO] Latest(as_of): 2025-08-18 Close=39.540001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=37.349998
+2025-08-18 18:57:54,764 [INFO] Return = 39.540001 - 37.349998 = 2.190002 | Volumn(2025-07-18, 2025-08-18] = 303759878 | Gainer = 665234874.421265
+2025-08-18 18:57:54,765 [INFO] ==== [00066.HK 港鐵公司] yfinance ticker = 0066.HK | end_date=latest
+2025-08-18 18:57:54,765 [INFO] Downloading from yfinance: 0066.HK (end=latest)
+2025-08-18 18:57:55,059 [INFO] Got 90 rows for 0066.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:55,072 [INFO] Raw saved: output\raw_data\Gainer_HSI\0066.HK.csv
+2025-08-18 18:57:55,075 [INFO] Latest(as_of): 2025-08-18 Close=27.299999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=27.450001
+2025-08-18 18:57:55,075 [INFO] Return = 27.299999 - 27.450001 = -0.150002 | Volumn(2025-07-18, 2025-08-18] = 130063711 | Gainer = -19509755.111473
+2025-08-18 18:57:55,076 [INFO] ==== [00101.HK 恒隆地產] yfinance ticker = 0101.HK | end_date=latest
+2025-08-18 18:57:55,076 [INFO] Downloading from yfinance: 0101.HK (end=latest)
+2025-08-18 18:57:55,356 [INFO] Got 90 rows for 0101.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:55,368 [INFO] Raw saved: output\raw_data\Gainer_HSI\0101.HK.csv
+2025-08-18 18:57:55,371 [INFO] Latest(as_of): 2025-08-18 Close=7.940000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=7.460000
+2025-08-18 18:57:55,371 [INFO] Return = 7.940000 - 7.460000 = 0.480000 | Volumn(2025-07-18, 2025-08-18] = 247818732 | Gainer = 118952996.086767
+2025-08-18 18:57:55,372 [INFO] ==== [00175.HK 吉利汽車] yfinance ticker = 0175.HK | end_date=latest
+2025-08-18 18:57:55,373 [INFO] Downloading from yfinance: 0175.HK (end=latest)
+2025-08-18 18:57:55,653 [INFO] Got 90 rows for 0175.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:55,655 [INFO] Raw saved: output\raw_data\Gainer_HSI\0175.HK.csv
+2025-08-18 18:57:55,658 [INFO] Latest(as_of): 2025-08-18 Close=19.809999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=18.920000
+2025-08-18 18:57:55,658 [INFO] Return = 19.809999 - 18.920000 = 0.889999 | Volumn(2025-07-18, 2025-08-18] = 1461563128 | Gainer = 1300790291.852661
+2025-08-18 18:57:55,659 [INFO] ==== [00241.HK 阿里健康] yfinance ticker = 0241.HK | end_date=latest
+2025-08-18 18:57:55,660 [INFO] Downloading from yfinance: 0241.HK (end=latest)
+2025-08-18 18:57:55,891 [INFO] Got 90 rows for 0241.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:55,903 [INFO] Raw saved: output\raw_data\Gainer_HSI\0241.HK.csv
+2025-08-18 18:57:55,906 [INFO] Latest(as_of): 2025-08-18 Close=5.520000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=4.700000
+2025-08-18 18:57:55,906 [INFO] Return = 5.520000 - 4.700000 = 0.820000 | Volumn(2025-07-18, 2025-08-18] = 2615890340 | Gainer = 2145030527.847338
+2025-08-18 18:57:55,907 [INFO] ==== [00267.HK 中信股份] yfinance ticker = 0267.HK | end_date=latest
+2025-08-18 18:57:55,907 [INFO] Downloading from yfinance: 0267.HK (end=latest)
+2025-08-18 18:57:56,201 [INFO] Got 90 rows for 0267.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:56,203 [INFO] Raw saved: output\raw_data\Gainer_HSI\0267.HK.csv
+2025-08-18 18:57:56,209 [INFO] Latest(as_of): 2025-08-18 Close=11.660000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=10.940000
+2025-08-18 18:57:56,209 [INFO] Return = 11.660000 - 10.940000 = 0.720000 | Volumn(2025-07-18, 2025-08-18] = 612268160 | Gainer = 440833238.693237
+2025-08-18 18:57:56,211 [INFO] ==== [00285.HK 比亞迪電子] yfinance ticker = 0285.HK | end_date=latest
+2025-08-18 18:57:56,211 [INFO] Downloading from yfinance: 0285.HK (end=latest)
+2025-08-18 18:57:56,494 [INFO] Got 90 rows for 0285.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:56,505 [INFO] Raw saved: output\raw_data\Gainer_HSI\0285.HK.csv
+2025-08-18 18:57:56,507 [INFO] Latest(as_of): 2025-08-18 Close=39.380001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=33.599998
+2025-08-18 18:57:56,507 [INFO] Return = 39.380001 - 33.599998 = 5.780003 | Volumn(2025-07-18, 2025-08-18] = 620924707 | Gainer = 3588946417.135052
+2025-08-18 18:57:56,508 [INFO] ==== [00288.HK 萬洲國際] yfinance ticker = 0288.HK | end_date=latest
+2025-08-18 18:57:56,508 [INFO] Downloading from yfinance: 0288.HK (end=latest)
+2025-08-18 18:57:56,789 [INFO] Got 90 rows for 0288.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:56,791 [INFO] Raw saved: output\raw_data\Gainer_HSI\0288.HK.csv
+2025-08-18 18:57:56,794 [INFO] Latest(as_of): 2025-08-18 Close=7.980000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=7.940000
+2025-08-18 18:57:56,794 [INFO] Return = 7.980000 - 7.940000 = 0.040000 | Volumn(2025-07-18, 2025-08-18] = 461282882 | Gainer = 18451297.683455
+2025-08-18 18:57:56,795 [INFO] ==== [00291.HK 華潤啤酒] yfinance ticker = 0291.HK | end_date=latest
+2025-08-18 18:57:56,795 [INFO] Downloading from yfinance: 0291.HK (end=latest)
+2025-08-18 18:57:57,066 [INFO] Got 90 rows for 0291.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:57,077 [INFO] Raw saved: output\raw_data\Gainer_HSI\0291.HK.csv
+2025-08-18 18:57:57,079 [INFO] Latest(as_of): 2025-08-18 Close=26.620001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=26.750000
+2025-08-18 18:57:57,079 [INFO] Return = 26.620001 - 26.750000 = -0.129999 | Volumn(2025-07-18, 2025-08-18] = 224050442 | Gainer = -29126369.429386
+2025-08-18 18:57:57,080 [INFO] ==== [00300.HK 美的集團] yfinance ticker = 0300.HK | end_date=latest
+2025-08-18 18:57:57,080 [INFO] Downloading from yfinance: 0300.HK (end=latest)
+2025-08-18 18:57:57,331 [INFO] Got 90 rows for 0300.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:57,334 [INFO] Raw saved: output\raw_data\Gainer_HSI\0300.HK.csv
+2025-08-18 18:57:57,336 [INFO] Latest(as_of): 2025-08-18 Close=80.949997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=77.949997
+2025-08-18 18:57:57,336 [INFO] Return = 80.949997 - 77.949997 = 3.000000 | Volumn(2025-07-18, 2025-08-18] = 85888848 | Gainer = 257666544.000000
+2025-08-18 18:57:57,337 [INFO] ==== [00316.HK 東方海外國際] yfinance ticker = 0316.HK | end_date=latest
+2025-08-18 18:57:57,338 [INFO] Downloading from yfinance: 0316.HK (end=latest)
+2025-08-18 18:57:57,609 [INFO] Got 90 rows for 0316.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:57,611 [INFO] Raw saved: output\raw_data\Gainer_HSI\0316.HK.csv
+2025-08-18 18:57:57,614 [INFO] Latest(as_of): 2025-08-18 Close=143.000000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=134.600006
+2025-08-18 18:57:57,614 [INFO] Return = 143.000000 - 134.600006 = 8.399994 | Volumn(2025-07-18, 2025-08-18] = 18639514 | Gainer = 156571803.833435
+2025-08-18 18:57:57,615 [INFO] ==== [00322.HK 康師傅控股] yfinance ticker = 0322.HK | end_date=latest
+2025-08-18 18:57:57,615 [INFO] Downloading from yfinance: 0322.HK (end=latest)
+2025-08-18 18:57:57,878 [INFO] Got 90 rows for 0322.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:57,890 [INFO] Raw saved: output\raw_data\Gainer_HSI\0322.HK.csv
+2025-08-18 18:57:57,892 [INFO] Latest(as_of): 2025-08-18 Close=10.800000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=11.500000
+2025-08-18 18:57:57,892 [INFO] Return = 10.800000 - 11.500000 = -0.700000 | Volumn(2025-07-18, 2025-08-18] = 280248387 | Gainer = -196173817.446862
+2025-08-18 18:57:57,893 [INFO] ==== [00386.HK 中國石油化工股份] yfinance ticker = 0386.HK | end_date=latest
+2025-08-18 18:57:57,894 [INFO] Downloading from yfinance: 0386.HK (end=latest)
+2025-08-18 18:57:58,165 [INFO] Got 90 rows for 0386.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:58,167 [INFO] Raw saved: output\raw_data\Gainer_HSI\0386.HK.csv
+2025-08-18 18:57:58,169 [INFO] Latest(as_of): 2025-08-18 Close=4.370000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=4.340000
+2025-08-18 18:57:58,169 [INFO] Return = 4.370000 - 4.340000 = 0.030000 | Volumn(2025-07-18, 2025-08-18] = 3742350244 | Gainer = 112269508.004673
+2025-08-18 18:57:58,170 [INFO] ==== [00388.HK 香港交易所] yfinance ticker = 0388.HK | end_date=latest
+2025-08-18 18:57:58,170 [INFO] Downloading from yfinance: 0388.HK (end=latest)
+2025-08-18 18:57:58,442 [INFO] Got 90 rows for 0388.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:58,453 [INFO] Raw saved: output\raw_data\Gainer_HSI\0388.HK.csv
+2025-08-18 18:57:58,455 [INFO] Latest(as_of): 2025-08-18 Close=439.600006 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=430.000000
+2025-08-18 18:57:58,456 [INFO] Return = 439.600006 - 430.000000 = 9.600006 | Volumn(2025-07-18, 2025-08-18] = 122302611 | Gainer = 1174105812.075897
+2025-08-18 18:57:58,457 [INFO] ==== [00669.HK 創科實業] yfinance ticker = 0669.HK | end_date=latest
+2025-08-18 18:57:58,457 [INFO] Downloading from yfinance: 0669.HK (end=latest)
+2025-08-18 18:57:58,738 [INFO] Got 90 rows for 0669.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:58,741 [INFO] Raw saved: output\raw_data\Gainer_HSI\0669.HK.csv
+2025-08-18 18:57:58,744 [INFO] Latest(as_of): 2025-08-18 Close=101.599998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=91.900002
+2025-08-18 18:57:58,744 [INFO] Return = 101.599998 - 91.900002 = 9.699997 | Volumn(2025-07-18, 2025-08-18] = 90137867 | Gainer = 874337034.821060
+2025-08-18 18:57:58,745 [INFO] ==== [00688.HK 中國海外發展] yfinance ticker = 0688.HK | end_date=latest
+2025-08-18 18:57:58,745 [INFO] Downloading from yfinance: 0688.HK (end=latest)
+2025-08-18 18:57:59,036 [INFO] Got 90 rows for 0688.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:59,047 [INFO] Raw saved: output\raw_data\Gainer_HSI\0688.HK.csv
+2025-08-18 18:57:59,049 [INFO] Latest(as_of): 2025-08-18 Close=14.140000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=13.400000
+2025-08-18 18:57:59,049 [INFO] Return = 14.140000 - 13.400000 = 0.740001 | Volumn(2025-07-18, 2025-08-18] = 393029780 | Gainer = 290842322.065029
+2025-08-18 18:57:59,050 [INFO] ==== [00700.HK 騰訊控股] yfinance ticker = 0700.HK | end_date=latest
+2025-08-18 18:57:59,050 [INFO] Downloading from yfinance: 0700.HK (end=latest)
+2025-08-18 18:57:59,341 [INFO] Got 90 rows for 0700.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:59,343 [INFO] Raw saved: output\raw_data\Gainer_HSI\0700.HK.csv
+2025-08-18 18:57:59,345 [INFO] Latest(as_of): 2025-08-18 Close=587.000000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=519.000000
+2025-08-18 18:57:59,345 [INFO] Return = 587.000000 - 519.000000 = 68.000000 | Volumn(2025-07-18, 2025-08-18] = 439206745 | Gainer = 29866058660.000000
+2025-08-18 18:57:59,346 [INFO] ==== [00762.HK 中國聯通] yfinance ticker = 0762.HK | end_date=latest
+2025-08-18 18:57:59,346 [INFO] Downloading from yfinance: 0762.HK (end=latest)
+2025-08-18 18:57:59,619 [INFO] Got 90 rows for 0762.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:59,622 [INFO] Raw saved: output\raw_data\Gainer_HSI\0762.HK.csv
+2025-08-18 18:57:59,625 [INFO] Latest(as_of): 2025-08-18 Close=10.220000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=9.380000
+2025-08-18 18:57:59,625 [INFO] Return = 10.220000 - 9.380000 = 0.840000 | Volumn(2025-07-18, 2025-08-18] = 898831897 | Gainer = 755018930.630863
+2025-08-18 18:57:59,626 [INFO] ==== [00823.HK 領展房產基金] yfinance ticker = 0823.HK | end_date=latest
+2025-08-18 18:57:59,627 [INFO] Downloading from yfinance: 0823.HK (end=latest)
+2025-08-18 18:57:59,887 [INFO] Got 90 rows for 0823.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:57:59,898 [INFO] Raw saved: output\raw_data\Gainer_HSI\0823.HK.csv
+2025-08-18 18:57:59,901 [INFO] Latest(as_of): 2025-08-18 Close=41.180000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=42.299999
+2025-08-18 18:57:59,901 [INFO] Return = 41.180000 - 42.299999 = -1.119999 | Volumn(2025-07-18, 2025-08-18] = 187638469 | Gainer = -210154884.860493
+2025-08-18 18:57:59,902 [INFO] ==== [00836.HK 華潤電力] yfinance ticker = 0836.HK | end_date=latest
+2025-08-18 18:57:59,902 [INFO] Downloading from yfinance: 0836.HK (end=latest)
+2025-08-18 18:58:00,163 [INFO] Got 90 rows for 0836.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:00,165 [INFO] Raw saved: output\raw_data\Gainer_HSI\0836.HK.csv
+2025-08-18 18:58:00,167 [INFO] Latest(as_of): 2025-08-18 Close=19.799999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=19.559999
+2025-08-18 18:58:00,167 [INFO] Return = 19.799999 - 19.559999 = 0.240000 | Volumn(2025-07-18, 2025-08-18] = 226669826 | Gainer = 54400706.359394
+2025-08-18 18:58:00,168 [INFO] ==== [00857.HK 中國石油股份] yfinance ticker = 0857.HK | end_date=latest
+2025-08-18 18:58:00,168 [INFO] Downloading from yfinance: 0857.HK (end=latest)
+2025-08-18 18:58:00,449 [INFO] Got 90 rows for 0857.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:00,453 [INFO] Raw saved: output\raw_data\Gainer_HSI\0857.HK.csv
+2025-08-18 18:58:00,456 [INFO] Latest(as_of): 2025-08-18 Close=7.510000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=7.210000
+2025-08-18 18:58:00,456 [INFO] Return = 7.510000 - 7.210000 = 0.300000 | Volumn(2025-07-18, 2025-08-18] = 2439981543 | Gainer = 731994928.289546
+2025-08-18 18:58:00,457 [INFO] ==== [00868.HK 信義玻璃] yfinance ticker = 0868.HK | end_date=latest
+2025-08-18 18:58:00,457 [INFO] Downloading from yfinance: 0868.HK (end=latest)
+2025-08-18 18:58:00,718 [INFO] Got 90 rows for 0868.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:00,721 [INFO] Raw saved: output\raw_data\Gainer_HSI\0868.HK.csv
+2025-08-18 18:58:00,724 [INFO] Latest(as_of): 2025-08-18 Close=8.790000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=8.180000
+2025-08-18 18:58:00,724 [INFO] Return = 8.790000 - 8.180000 = 0.610000 | Volumn(2025-07-18, 2025-08-18] = 427133997 | Gainer = 260551591.525180
+2025-08-18 18:58:00,725 [INFO] ==== [00881.HK 中升控股] yfinance ticker = 0881.HK | end_date=latest
+2025-08-18 18:58:00,725 [INFO] Downloading from yfinance: 0881.HK (end=latest)
+2025-08-18 18:58:00,987 [INFO] Got 90 rows for 0881.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:00,991 [INFO] Raw saved: output\raw_data\Gainer_HSI\0881.HK.csv
+2025-08-18 18:58:00,993 [INFO] Latest(as_of): 2025-08-18 Close=14.240000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=12.160000
+2025-08-18 18:58:00,993 [INFO] Return = 14.240000 - 12.160000 = 2.080000 | Volumn(2025-07-18, 2025-08-18] = 290695911 | Gainer = 604647472.701662
+2025-08-18 18:58:00,994 [INFO] ==== [00883.HK 中國海洋石油] yfinance ticker = 0883.HK | end_date=latest
+2025-08-18 18:58:00,994 [INFO] Downloading from yfinance: 0883.HK (end=latest)
+2025-08-18 18:58:01,287 [INFO] Got 90 rows for 0883.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:01,292 [INFO] Raw saved: output\raw_data\Gainer_HSI\0883.HK.csv
+2025-08-18 18:58:01,294 [INFO] Latest(as_of): 2025-08-18 Close=18.590000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=18.520000
+2025-08-18 18:58:01,294 [INFO] Return = 18.590000 - 18.520000 = 0.070000 | Volumn(2025-07-18, 2025-08-18] = 1578354237 | Gainer = 110484314.914513
+2025-08-18 18:58:01,296 [INFO] ==== [00939.HK 建設銀行] yfinance ticker = 0939.HK | end_date=latest
+2025-08-18 18:58:01,296 [INFO] Downloading from yfinance: 0939.HK (end=latest)
+2025-08-18 18:58:01,579 [INFO] Got 90 rows for 0939.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:01,583 [INFO] Raw saved: output\raw_data\Gainer_HSI\0939.HK.csv
+2025-08-18 18:58:01,585 [INFO] Latest(as_of): 2025-08-18 Close=7.710000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=8.470000
+2025-08-18 18:58:01,585 [INFO] Return = 7.710000 - 8.470000 = -0.760000 | Volumn(2025-07-18, 2025-08-18] = 5725427953 | Gainer = -4351326554.726461
+2025-08-18 18:58:01,586 [INFO] ==== [00941.HK 中國移動] yfinance ticker = 0941.HK | end_date=latest
+2025-08-18 18:58:01,586 [INFO] Downloading from yfinance: 0941.HK (end=latest)
+2025-08-18 18:58:03,814 [INFO] Got 90 rows for 0941.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:03,817 [INFO] Raw saved: output\raw_data\Gainer_HSI\0941.HK.csv
+2025-08-18 18:58:03,820 [INFO] Latest(as_of): 2025-08-18 Close=88.449997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=87.349998
+2025-08-18 18:58:03,820 [INFO] Return = 88.449997 - 87.349998 = 1.099998 | Volumn(2025-07-18, 2025-08-18] = 403921375 | Gainer = 444312896.164894
+2025-08-18 18:58:03,821 [INFO] ==== [00960.HK 龍湖集團] yfinance ticker = 0960.HK | end_date=latest
+2025-08-18 18:58:03,821 [INFO] Downloading from yfinance: 0960.HK (end=latest)
+2025-08-18 18:58:04,071 [INFO] Got 90 rows for 0960.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:04,082 [INFO] Raw saved: output\raw_data\Gainer_HSI\0960.HK.csv
+2025-08-18 18:58:04,085 [INFO] Latest(as_of): 2025-08-18 Close=10.530000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=10.040000
+2025-08-18 18:58:04,085 [INFO] Return = 10.530000 - 10.040000 = 0.490000 | Volumn(2025-07-18, 2025-08-18] = 361754501 | Gainer = 177259622.690966
+2025-08-18 18:58:04,086 [INFO] ==== [00968.HK 信義光能] yfinance ticker = 0968.HK | end_date=latest
+2025-08-18 18:58:04,086 [INFO] Downloading from yfinance: 0968.HK (end=latest)
+2025-08-18 18:58:04,366 [INFO] Got 90 rows for 0968.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:04,368 [INFO] Raw saved: output\raw_data\Gainer_HSI\0968.HK.csv
+2025-08-18 18:58:04,370 [INFO] Latest(as_of): 2025-08-18 Close=3.400000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=2.830000
+2025-08-18 18:58:04,370 [INFO] Return = 3.400000 - 2.830000 = 0.570000 | Volumn(2025-07-18, 2025-08-18] = 2551087179 | Gainer = 1454120129.953138
+2025-08-18 18:58:04,371 [INFO] ==== [00981.HK 中芯國際] yfinance ticker = 0981.HK | end_date=latest
+2025-08-18 18:58:04,371 [INFO] Downloading from yfinance: 0981.HK (end=latest)
+2025-08-18 18:58:04,610 [INFO] Got 90 rows for 0981.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:04,612 [INFO] Raw saved: output\raw_data\Gainer_HSI\0981.HK.csv
+2025-08-18 18:58:04,615 [INFO] Latest(as_of): 2025-08-18 Close=51.799999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=47.099998
+2025-08-18 18:58:04,615 [INFO] Return = 51.799999 - 47.099998 = 4.700001 | Volumn(2025-07-18, 2025-08-18] = 2042859178 | Gainer = 9601439695.177864
+2025-08-18 18:58:04,616 [INFO] ==== [00992.HK 聯想集團] yfinance ticker = 0992.HK | end_date=latest
+2025-08-18 18:58:04,617 [INFO] Downloading from yfinance: 0992.HK (end=latest)
+2025-08-18 18:58:04,897 [INFO] Got 90 rows for 0992.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:04,899 [INFO] Raw saved: output\raw_data\Gainer_HSI\0992.HK.csv
+2025-08-18 18:58:04,902 [INFO] Latest(as_of): 2025-08-18 Close=11.150000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=10.140000
+2025-08-18 18:58:04,902 [INFO] Return = 11.150000 - 10.140000 = 1.009999 | Volumn(2025-07-18, 2025-08-18] = 1893530316 | Gainer = 1912464246.743465
+2025-08-18 18:58:04,903 [INFO] ==== [01024.HK 快手－Ｗ] yfinance ticker = 1024.HK | end_date=latest
+2025-08-18 18:58:04,903 [INFO] Downloading from yfinance: 1024.HK (end=latest)
+2025-08-18 18:58:05,205 [INFO] Got 90 rows for 1024.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:05,208 [INFO] Raw saved: output\raw_data\Gainer_HSI\1024.HK.csv
+2025-08-18 18:58:05,210 [INFO] Latest(as_of): 2025-08-18 Close=73.699997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=70.699997
+2025-08-18 18:58:05,211 [INFO] Return = 73.699997 - 70.699997 = 3.000000 | Volumn(2025-07-18, 2025-08-18] = 1034506075 | Gainer = 3103518225.000000
+2025-08-18 18:58:05,212 [INFO] ==== [01038.HK 長江基建集團] yfinance ticker = 1038.HK | end_date=latest
+2025-08-18 18:58:05,212 [INFO] Downloading from yfinance: 1038.HK (end=latest)
+2025-08-18 18:58:05,494 [INFO] Got 90 rows for 1038.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:05,496 [INFO] Raw saved: output\raw_data\Gainer_HSI\1038.HK.csv
+2025-08-18 18:58:05,498 [INFO] Latest(as_of): 2025-08-18 Close=53.099998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=52.400002
+2025-08-18 18:58:05,498 [INFO] Return = 53.099998 - 52.400002 = 0.699997 | Volumn(2025-07-18, 2025-08-18] = 35629706 | Gainer = 24940685.466766
+2025-08-18 18:58:05,498 [INFO] ==== [01044.HK 恆安國際] yfinance ticker = 1044.HK | end_date=latest
+2025-08-18 18:58:05,499 [INFO] Downloading from yfinance: 1044.HK (end=latest)
+2025-08-18 18:58:05,790 [INFO] Got 90 rows for 1044.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:05,792 [INFO] Raw saved: output\raw_data\Gainer_HSI\1044.HK.csv
+2025-08-18 18:58:05,794 [INFO] Latest(as_of): 2025-08-18 Close=23.680000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=23.250000
+2025-08-18 18:58:05,794 [INFO] Return = 23.680000 - 23.250000 = 0.430000 | Volumn(2025-07-18, 2025-08-18] = 63534425 | Gainer = 27319822.139168
+2025-08-18 18:58:05,795 [INFO] ==== [01088.HK 中國神華] yfinance ticker = 1088.HK | end_date=latest
+2025-08-18 18:58:05,795 [INFO] Downloading from yfinance: 1088.HK (end=latest)
+2025-08-18 18:58:06,099 [INFO] Got 90 rows for 1088.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:06,100 [INFO] Raw saved: output\raw_data\Gainer_HSI\1088.HK.csv
+2025-08-18 18:58:06,103 [INFO] Latest(as_of): 2025-08-18 Close=35.939999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=32.349998
+2025-08-18 18:58:06,103 [INFO] Return = 35.939999 - 32.349998 = 3.590000 | Volumn(2025-07-18, 2025-08-18] = 462406923 | Gainer = 1660040924.127697
+2025-08-18 18:58:06,104 [INFO] ==== [01093.HK 石藥集團] yfinance ticker = 1093.HK | end_date=latest
+2025-08-18 18:58:06,104 [INFO] Downloading from yfinance: 1093.HK (end=latest)
+2025-08-18 18:58:06,409 [INFO] Got 90 rows for 1093.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:06,412 [INFO] Raw saved: output\raw_data\Gainer_HSI\1093.HK.csv
+2025-08-18 18:58:06,414 [INFO] Latest(as_of): 2025-08-18 Close=10.920000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=9.190000
+2025-08-18 18:58:06,414 [INFO] Return = 10.920000 - 9.190000 = 1.730000 | Volumn(2025-07-18, 2025-08-18] = 4218477782 | Gainer = 7297968654.848036
+2025-08-18 18:58:06,415 [INFO] ==== [01099.HK 國藥控股] yfinance ticker = 1099.HK | end_date=latest
+2025-08-18 18:58:06,416 [INFO] Downloading from yfinance: 1099.HK (end=latest)
+2025-08-18 18:58:06,695 [INFO] Got 90 rows for 1099.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:06,698 [INFO] Raw saved: output\raw_data\Gainer_HSI\1099.HK.csv
+2025-08-18 18:58:06,700 [INFO] Latest(as_of): 2025-08-18 Close=19.360001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=18.799999
+2025-08-18 18:58:06,700 [INFO] Return = 19.360001 - 18.799999 = 0.560001 | Volumn(2025-07-18, 2025-08-18] = 119260403 | Gainer = 66785989.459240
+2025-08-18 18:58:06,702 [INFO] ==== [01109.HK 華潤置地] yfinance ticker = 1109.HK | end_date=latest
+2025-08-18 18:58:06,702 [INFO] Downloading from yfinance: 1109.HK (end=latest)
+2025-08-18 18:58:06,994 [INFO] Got 90 rows for 1109.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:06,997 [INFO] Raw saved: output\raw_data\Gainer_HSI\1109.HK.csv
+2025-08-18 18:58:07,000 [INFO] Latest(as_of): 2025-08-18 Close=32.099998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=28.350000
+2025-08-18 18:58:07,000 [INFO] Return = 32.099998 - 28.350000 = 3.749998 | Volumn(2025-07-18, 2025-08-18] = 313809399 | Gainer = 1176784647.706072
+2025-08-18 18:58:07,000 [INFO] ==== [01113.HK 長實集團] yfinance ticker = 1113.HK | end_date=latest
+2025-08-18 18:58:07,001 [INFO] Downloading from yfinance: 1113.HK (end=latest)
+2025-08-18 18:58:07,278 [INFO] Got 90 rows for 1113.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:07,280 [INFO] Raw saved: output\raw_data\Gainer_HSI\1113.HK.csv
+2025-08-18 18:58:07,283 [INFO] Latest(as_of): 2025-08-18 Close=36.680000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=35.299999
+2025-08-18 18:58:07,283 [INFO] Return = 36.680000 - 35.299999 = 1.380001 | Volumn(2025-07-18, 2025-08-18] = 86444301 | Gainer = 119293227.712475
+2025-08-18 18:58:07,284 [INFO] ==== [01177.HK 中國生物製藥] yfinance ticker = 1177.HK | end_date=latest
+2025-08-18 18:58:07,284 [INFO] Downloading from yfinance: 1177.HK (end=latest)
+2025-08-18 18:58:07,566 [INFO] Got 90 rows for 1177.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:07,568 [INFO] Raw saved: output\raw_data\Gainer_HSI\1177.HK.csv
+2025-08-18 18:58:07,570 [INFO] Latest(as_of): 2025-08-18 Close=7.910000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=6.900000
+2025-08-18 18:58:07,570 [INFO] Return = 7.910000 - 6.900000 = 1.010000 | Volumn(2025-07-18, 2025-08-18] = 3767861167 | Gainer = 3805538844.408770
+2025-08-18 18:58:07,571 [INFO] ==== [01209.HK 華潤萬象生活] yfinance ticker = 1209.HK | end_date=latest
+2025-08-18 18:58:07,571 [INFO] Downloading from yfinance: 1209.HK (end=latest)
+2025-08-18 18:58:07,832 [INFO] Got 90 rows for 1209.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:07,836 [INFO] Raw saved: output\raw_data\Gainer_HSI\1209.HK.csv
+2025-08-18 18:58:07,839 [INFO] Latest(as_of): 2025-08-18 Close=39.020000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=37.099998
+2025-08-18 18:58:07,839 [INFO] Return = 39.020000 - 37.099998 = 1.920002 | Volumn(2025-07-18, 2025-08-18] = 79068193 | Gainer = 151811087.403034
+2025-08-18 18:58:07,840 [INFO] ==== [01211.HK 比亞迪股份] yfinance ticker = 1211.HK | end_date=latest
+2025-08-18 18:58:07,840 [INFO] Downloading from yfinance: 1211.HK (end=latest)
+2025-08-18 18:58:08,110 [INFO] Got 90 rows for 1211.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:08,121 [INFO] Raw saved: output\raw_data\Gainer_HSI\1211.HK.csv
+2025-08-18 18:58:08,124 [INFO] Latest(as_of): 2025-08-18 Close=113.699997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=126.400002
+2025-08-18 18:58:08,124 [INFO] Return = 113.699997 - 126.400002 = -12.700005 | Volumn(2025-07-18, 2025-08-18] = 741615555 | Gainer = -9418520943.346596
+2025-08-18 18:58:08,125 [INFO] ==== [01299.HK 友邦保險] yfinance ticker = 1299.HK | end_date=latest
+2025-08-18 18:58:08,125 [INFO] Downloading from yfinance: 1299.HK (end=latest)
+2025-08-18 18:58:08,395 [INFO] Got 90 rows for 1299.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:08,406 [INFO] Raw saved: output\raw_data\Gainer_HSI\1299.HK.csv
+2025-08-18 18:58:08,409 [INFO] Latest(as_of): 2025-08-18 Close=74.599998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=68.800003
+2025-08-18 18:58:08,409 [INFO] Return = 74.599998 - 68.800003 = 5.799995 | Volumn(2025-07-18, 2025-08-18] = 582969542 | Gainer = 3381220674.977219
+2025-08-18 18:58:08,410 [INFO] ==== [01378.HK 中國宏橋] yfinance ticker = 1378.HK | end_date=latest
+2025-08-18 18:58:08,410 [INFO] Downloading from yfinance: 1378.HK (end=latest)
+2025-08-18 18:58:08,648 [INFO] Got 90 rows for 1378.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:08,650 [INFO] Raw saved: output\raw_data\Gainer_HSI\1378.HK.csv
+2025-08-18 18:58:08,652 [INFO] Latest(as_of): 2025-08-18 Close=23.240000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=19.260000
+2025-08-18 18:58:08,652 [INFO] Return = 23.240000 - 19.260000 = 3.980000 | Volumn(2025-07-18, 2025-08-18] = 646865467 | Gainer = 2574524262.548489
+2025-08-18 18:58:08,653 [INFO] ==== [01398.HK 工商銀行] yfinance ticker = 1398.HK | end_date=latest
+2025-08-18 18:58:08,653 [INFO] Downloading from yfinance: 1398.HK (end=latest)
+2025-08-18 18:58:08,912 [INFO] Got 90 rows for 1398.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:08,924 [INFO] Raw saved: output\raw_data\Gainer_HSI\1398.HK.csv
+2025-08-18 18:58:08,926 [INFO] Latest(as_of): 2025-08-18 Close=5.880000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=6.190000
+2025-08-18 18:58:08,926 [INFO] Return = 5.880000 - 6.190000 = -0.310000 | Volumn(2025-07-18, 2025-08-18] = 4522618473 | Gainer = -1402011467.843695
+2025-08-18 18:58:08,927 [INFO] ==== [01810.HK 小米集團－Ｗ] yfinance ticker = 1810.HK | end_date=latest
+2025-08-18 18:58:08,927 [INFO] Downloading from yfinance: 1810.HK (end=latest)
+2025-08-18 18:58:09,187 [INFO] Got 90 rows for 1810.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:09,189 [INFO] Raw saved: output\raw_data\Gainer_HSI\1810.HK.csv
+2025-08-18 18:58:09,191 [INFO] Latest(as_of): 2025-08-18 Close=53.049999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=57.000000
+2025-08-18 18:58:09,191 [INFO] Return = 53.049999 - 57.000000 = -3.950001 | Volumn(2025-07-18, 2025-08-18] = 2771407576 | Gainer = -10947062039.616180
+2025-08-18 18:58:09,192 [INFO] ==== [01876.HK 百威亞太] yfinance ticker = 1876.HK | end_date=latest
+2025-08-18 18:58:09,192 [INFO] Downloading from yfinance: 1876.HK (end=latest)
+2025-08-18 18:58:09,430 [INFO] Got 90 rows for 1876.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:09,442 [INFO] Raw saved: output\raw_data\Gainer_HSI\1876.HK.csv
+2025-08-18 18:58:09,444 [INFO] Latest(as_of): 2025-08-18 Close=8.450000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=8.350000
+2025-08-18 18:58:09,444 [INFO] Return = 8.450000 - 8.350000 = 0.099999 | Volumn(2025-07-18, 2025-08-18] = 420805187 | Gainer = 42080277.913341
+2025-08-18 18:58:09,445 [INFO] ==== [01928.HK 金沙中國有限公司] yfinance ticker = 1928.HK | end_date=latest
+2025-08-18 18:58:09,445 [INFO] Downloading from yfinance: 1928.HK (end=latest)
+2025-08-18 18:58:09,729 [INFO] Got 90 rows for 1928.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:09,731 [INFO] Raw saved: output\raw_data\Gainer_HSI\1928.HK.csv
+2025-08-18 18:58:09,733 [INFO] Latest(as_of): 2025-08-18 Close=19.980000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=18.480000
+2025-08-18 18:58:09,733 [INFO] Return = 19.980000 - 18.480000 = 1.500000 | Volumn(2025-07-18, 2025-08-18] = 451125248 | Gainer = 676687872.000000
+2025-08-18 18:58:09,734 [INFO] ==== [01929.HK 周大福] yfinance ticker = 1929.HK | end_date=latest
+2025-08-18 18:58:09,734 [INFO] Downloading from yfinance: 1929.HK (end=latest)
+2025-08-18 18:58:09,983 [INFO] Got 90 rows for 1929.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:09,985 [INFO] Raw saved: output\raw_data\Gainer_HSI\1929.HK.csv
+2025-08-18 18:58:09,987 [INFO] Latest(as_of): 2025-08-18 Close=14.450000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=13.480000
+2025-08-18 18:58:09,987 [INFO] Return = 14.450000 - 13.480000 = 0.970000 | Volumn(2025-07-18, 2025-08-18] = 308674880 | Gainer = 299414716.025085
+2025-08-18 18:58:09,988 [INFO] ==== [01997.HK 九龍倉置業] yfinance ticker = 1997.HK | end_date=latest
+2025-08-18 18:58:09,988 [INFO] Downloading from yfinance: 1997.HK (end=latest)
+2025-08-18 18:58:10,259 [INFO] Got 90 rows for 1997.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:10,261 [INFO] Raw saved: output\raw_data\Gainer_HSI\1997.HK.csv
+2025-08-18 18:58:10,264 [INFO] Latest(as_of): 2025-08-18 Close=23.000000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=23.350000
+2025-08-18 18:58:10,264 [INFO] Return = 23.000000 - 23.350000 = -0.350000 | Volumn(2025-07-18, 2025-08-18] = 111454127 | Gainer = -39008986.966375
+2025-08-18 18:58:10,265 [INFO] ==== [02015.HK 理想汽車－Ｗ] yfinance ticker = 2015.HK | end_date=latest
+2025-08-18 18:58:10,265 [INFO] Downloading from yfinance: 2015.HK (end=latest)
+2025-08-18 18:58:10,506 [INFO] Got 90 rows for 2015.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:10,510 [INFO] Raw saved: output\raw_data\Gainer_HSI\2015.HK.csv
+2025-08-18 18:58:10,512 [INFO] Latest(as_of): 2025-08-18 Close=95.800003 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=124.500000
+2025-08-18 18:58:10,512 [INFO] Return = 95.800003 - 124.500000 = -28.699997 | Volumn(2025-07-18, 2025-08-18] = 472276611 | Gainer = -13554337294.426163
+2025-08-18 18:58:10,513 [INFO] ==== [02020.HK 安踏體育] yfinance ticker = 2020.HK | end_date=latest
+2025-08-18 18:58:10,514 [INFO] Downloading from yfinance: 2020.HK (end=latest)
+2025-08-18 18:58:10,776 [INFO] Got 90 rows for 2020.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:10,779 [INFO] Raw saved: output\raw_data\Gainer_HSI\2020.HK.csv
+2025-08-18 18:58:10,782 [INFO] Latest(as_of): 2025-08-18 Close=93.199997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=93.650002
+2025-08-18 18:58:10,782 [INFO] Return = 93.199997 - 93.650002 = -0.450005 | Volumn(2025-07-18, 2025-08-18] = 195479782 | Gainer = -87966796.735428
+2025-08-18 18:58:10,783 [INFO] ==== [02057.HK 中通快遞－Ｗ] yfinance ticker = 2057.HK | end_date=latest
+2025-08-18 18:58:10,783 [INFO] Downloading from yfinance: 2057.HK (end=latest)
+2025-08-18 18:58:11,023 [INFO] Got 90 rows for 2057.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:11,025 [INFO] Raw saved: output\raw_data\Gainer_HSI\2057.HK.csv
+2025-08-18 18:58:11,027 [INFO] Latest(as_of): 2025-08-18 Close=161.100006 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=152.100006
+2025-08-18 18:58:11,027 [INFO] Return = 161.100006 - 152.100006 = 9.000000 | Volumn(2025-07-18, 2025-08-18] = 78283966 | Gainer = 704555694.000000
+2025-08-18 18:58:11,028 [INFO] ==== [02269.HK 藥明生物] yfinance ticker = 2269.HK | end_date=latest
+2025-08-18 18:58:11,028 [INFO] Downloading from yfinance: 2269.HK (end=latest)
+2025-08-18 18:58:11,258 [INFO] Got 90 rows for 2269.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:11,261 [INFO] Raw saved: output\raw_data\Gainer_HSI\2269.HK.csv
+2025-08-18 18:58:11,264 [INFO] Latest(as_of): 2025-08-18 Close=31.000000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=28.549999
+2025-08-18 18:58:11,264 [INFO] Return = 31.000000 - 28.549999 = 2.450001 | Volumn(2025-07-18, 2025-08-18] = 1293190687 | Gainer = 3168318169.776196
+2025-08-18 18:58:11,265 [INFO] ==== [02313.HK 申洲國際] yfinance ticker = 2313.HK | end_date=latest
+2025-08-18 18:58:11,265 [INFO] Downloading from yfinance: 2313.HK (end=latest)
+2025-08-18 18:58:11,537 [INFO] Got 90 rows for 2313.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:11,539 [INFO] Raw saved: output\raw_data\Gainer_HSI\2313.HK.csv
+2025-08-18 18:58:11,541 [INFO] Latest(as_of): 2025-08-18 Close=57.250000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=56.650002
+2025-08-18 18:58:11,541 [INFO] Return = 57.250000 - 56.650002 = 0.599998 | Volumn(2025-07-18, 2025-08-18] = 100517075 | Gainer = 60310091.623116
+2025-08-18 18:58:11,542 [INFO] ==== [02318.HK 中國平安] yfinance ticker = 2318.HK | end_date=latest
+2025-08-18 18:58:11,542 [INFO] Downloading from yfinance: 2318.HK (end=latest)
+2025-08-18 18:58:11,814 [INFO] Got 90 rows for 2318.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:11,816 [INFO] Raw saved: output\raw_data\Gainer_HSI\2318.HK.csv
+2025-08-18 18:58:11,818 [INFO] Latest(as_of): 2025-08-18 Close=57.750000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=52.849998
+2025-08-18 18:58:11,818 [INFO] Return = 57.750000 - 52.849998 = 4.900002 | Volumn(2025-07-18, 2025-08-18] = 1158777440 | Gainer = 5678011224.154053
+2025-08-18 18:58:11,819 [INFO] ==== [02319.HK 蒙牛乳業] yfinance ticker = 2319.HK | end_date=latest
+2025-08-18 18:58:11,819 [INFO] Downloading from yfinance: 2319.HK (end=latest)
+2025-08-18 18:58:12,080 [INFO] Got 90 rows for 2319.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:12,082 [INFO] Raw saved: output\raw_data\Gainer_HSI\2319.HK.csv
+2025-08-18 18:58:12,084 [INFO] Latest(as_of): 2025-08-18 Close=16.280001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=16.959999
+2025-08-18 18:58:12,084 [INFO] Return = 16.280001 - 16.959999 = -0.679998 | Volumn(2025-07-18, 2025-08-18] = 383600610 | Gainer = -260847800.205517
+2025-08-18 18:58:12,085 [INFO] ==== [02331.HK 李寧] yfinance ticker = 2331.HK | end_date=latest
+2025-08-18 18:58:12,085 [INFO] Downloading from yfinance: 2331.HK (end=latest)
+2025-08-18 18:58:12,335 [INFO] Got 90 rows for 2331.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:12,337 [INFO] Raw saved: output\raw_data\Gainer_HSI\2331.HK.csv
+2025-08-18 18:58:12,339 [INFO] Latest(as_of): 2025-08-18 Close=18.010000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=16.240000
+2025-08-18 18:58:12,339 [INFO] Return = 18.010000 - 16.240000 = 1.770000 | Volumn(2025-07-18, 2025-08-18] = 457439457 | Gainer = 809668048.289165
+2025-08-18 18:58:12,340 [INFO] ==== [02359.HK 藥明康德] yfinance ticker = 2359.HK | end_date=latest
+2025-08-18 18:58:12,340 [INFO] Downloading from yfinance: 2359.HK (end=latest)
+2025-08-18 18:58:12,572 [INFO] Got 90 rows for 2359.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:12,574 [INFO] Raw saved: output\raw_data\Gainer_HSI\2359.HK.csv
+2025-08-18 18:58:12,577 [INFO] Latest(as_of): 2025-08-18 Close=106.500000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=92.800003
+2025-08-18 18:58:12,577 [INFO] Return = 106.500000 - 92.800003 = 13.699997 | Volumn(2025-07-18, 2025-08-18] = 259003899 | Gainer = 3548352625.882828
+2025-08-18 18:58:12,578 [INFO] ==== [02382.HK 舜宇光學科技] yfinance ticker = 2382.HK | end_date=latest
+2025-08-18 18:58:12,578 [INFO] Downloading from yfinance: 2382.HK (end=latest)
+2025-08-18 18:58:12,839 [INFO] Got 90 rows for 2382.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:12,850 [INFO] Raw saved: output\raw_data\Gainer_HSI\2382.HK.csv
+2025-08-18 18:58:12,853 [INFO] Latest(as_of): 2025-08-18 Close=75.400002 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=76.250000
+2025-08-18 18:58:12,853 [INFO] Return = 75.400002 - 76.250000 = -0.849998 | Volumn(2025-07-18, 2025-08-18] = 197390382 | Gainer = -167781523.506180
+2025-08-18 18:58:12,854 [INFO] ==== [02388.HK 中銀香港] yfinance ticker = 2388.HK | end_date=latest
+2025-08-18 18:58:12,854 [INFO] Downloading from yfinance: 2388.HK (end=latest)
+2025-08-18 18:58:13,124 [INFO] Got 90 rows for 2388.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:13,126 [INFO] Raw saved: output\raw_data\Gainer_HSI\2388.HK.csv
+2025-08-18 18:58:13,128 [INFO] Latest(as_of): 2025-08-18 Close=36.020000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=37.099998
+2025-08-18 18:58:13,128 [INFO] Return = 36.020000 - 37.099998 = -1.079998 | Volumn(2025-07-18, 2025-08-18] = 401989575 | Gainer = -434147943.596363
+2025-08-18 18:58:13,129 [INFO] ==== [02628.HK 中國人壽] yfinance ticker = 2628.HK | end_date=latest
+2025-08-18 18:58:13,129 [INFO] Downloading from yfinance: 2628.HK (end=latest)
+2025-08-18 18:58:13,390 [INFO] Got 90 rows for 2628.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:13,393 [INFO] Raw saved: output\raw_data\Gainer_HSI\2628.HK.csv
+2025-08-18 18:58:13,396 [INFO] Latest(as_of): 2025-08-18 Close=25.059999 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=19.660000
+2025-08-18 18:58:13,396 [INFO] Return = 25.059999 - 19.660000 = 5.400000 | Volumn(2025-07-18, 2025-08-18] = 2547794748 | Gainer = 13758090667.293434
+2025-08-18 18:58:13,397 [INFO] ==== [02688.HK 新奧能源] yfinance ticker = 2688.HK | end_date=latest
+2025-08-18 18:58:13,397 [INFO] Downloading from yfinance: 2688.HK (end=latest)
+2025-08-18 18:58:13,669 [INFO] Got 90 rows for 2688.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:13,680 [INFO] Raw saved: output\raw_data\Gainer_HSI\2688.HK.csv
+2025-08-18 18:58:13,683 [INFO] Latest(as_of): 2025-08-18 Close=63.950001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=63.900002
+2025-08-18 18:58:13,683 [INFO] Return = 63.950001 - 63.900002 = 0.049999 | Volumn(2025-07-18, 2025-08-18] = 67283309 | Gainer = 3364114.116909
+2025-08-18 18:58:13,684 [INFO] ==== [02899.HK 紫金礦業] yfinance ticker = 2899.HK | end_date=latest
+2025-08-18 18:58:13,684 [INFO] Downloading from yfinance: 2899.HK (end=latest)
+2025-08-18 18:58:13,959 [INFO] Got 90 rows for 2899.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:13,961 [INFO] Raw saved: output\raw_data\Gainer_HSI\2899.HK.csv
+2025-08-18 18:58:13,963 [INFO] Latest(as_of): 2025-08-18 Close=23.480000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=20.950001
+2025-08-18 18:58:13,963 [INFO] Return = 23.480000 - 20.950001 = 2.529999 | Volumn(2025-07-18, 2025-08-18] = 943608680 | Gainer = 2387328808.533936
+2025-08-18 18:58:13,964 [INFO] ==== [03690.HK 美團－Ｗ] yfinance ticker = 3690.HK | end_date=latest
+2025-08-18 18:58:13,964 [INFO] Downloading from yfinance: 3690.HK (end=latest)
+2025-08-18 18:58:14,184 [INFO] Got 90 rows for 3690.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:14,186 [INFO] Raw saved: output\raw_data\Gainer_HSI\3690.HK.csv
+2025-08-18 18:58:14,188 [INFO] Latest(as_of): 2025-08-18 Close=121.500000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=127.300003
+2025-08-18 18:58:14,188 [INFO] Return = 121.500000 - 127.300003 = -5.800003 | Volumn(2025-07-18, 2025-08-18] = 1029715462 | Gainer = -5972352822.042206
+2025-08-18 18:58:14,189 [INFO] ==== [03692.HK 翰森製藥] yfinance ticker = 3692.HK | end_date=latest
+2025-08-18 18:58:14,189 [INFO] Downloading from yfinance: 3692.HK (end=latest)
+2025-08-18 18:58:14,466 [INFO] Got 90 rows for 3692.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:14,469 [INFO] Raw saved: output\raw_data\Gainer_HSI\3692.HK.csv
+2025-08-18 18:58:14,472 [INFO] Latest(as_of): 2025-08-18 Close=37.060001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=36.049999
+2025-08-18 18:58:14,472 [INFO] Return = 37.060001 - 36.049999 = 1.010002 | Volumn(2025-07-18, 2025-08-18] = 242815813 | Gainer = 245244489.840538
+2025-08-18 18:58:14,474 [INFO] ==== [03968.HK 招商銀行] yfinance ticker = 3968.HK | end_date=latest
+2025-08-18 18:58:14,474 [INFO] Downloading from yfinance: 3968.HK (end=latest)
+2025-08-18 18:58:14,756 [INFO] Got 90 rows for 3968.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:14,760 [INFO] Raw saved: output\raw_data\Gainer_HSI\3968.HK.csv
+2025-08-18 18:58:14,762 [INFO] Latest(as_of): 2025-08-18 Close=48.560001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=51.900002
+2025-08-18 18:58:14,762 [INFO] Return = 48.560001 - 51.900002 = -3.340000 | Volumn(2025-07-18, 2025-08-18] = 299083568 | Gainer = -998939162.756531
+2025-08-18 18:58:14,763 [INFO] ==== [03988.HK 中國銀行] yfinance ticker = 3988.HK | end_date=latest
+2025-08-18 18:58:14,763 [INFO] Downloading from yfinance: 3988.HK (end=latest)
+2025-08-18 18:58:15,015 [INFO] Got 90 rows for 3988.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:15,017 [INFO] Raw saved: output\raw_data\Gainer_HSI\3988.HK.csv
+2025-08-18 18:58:15,019 [INFO] Latest(as_of): 2025-08-18 Close=4.390000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=4.690000
+2025-08-18 18:58:15,019 [INFO] Return = 4.390000 - 4.690000 = -0.300000 | Volumn(2025-07-18, 2025-08-18] = 4648388926 | Gainer = -1394517564.409826
+2025-08-18 18:58:15,020 [INFO] ==== [06618.HK 京東健康] yfinance ticker = 6618.HK | end_date=latest
+2025-08-18 18:58:15,020 [INFO] Downloading from yfinance: 6618.HK (end=latest)
+2025-08-18 18:58:15,282 [INFO] Got 90 rows for 6618.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:15,284 [INFO] Raw saved: output\raw_data\Gainer_HSI\6618.HK.csv
+2025-08-18 18:58:15,286 [INFO] Latest(as_of): 2025-08-18 Close=66.400002 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=47.700001
+2025-08-18 18:58:15,286 [INFO] Return = 66.400002 - 47.700001 = 18.700001 | Volumn(2025-07-18, 2025-08-18] = 212314486 | Gainer = 3970281050.183098
+2025-08-18 18:58:15,287 [INFO] ==== [06690.HK 海爾智家] yfinance ticker = 6690.HK | end_date=latest
+2025-08-18 18:58:15,287 [INFO] Downloading from yfinance: 6690.HK (end=latest)
+2025-08-18 18:58:15,540 [INFO] Got 90 rows for 6690.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:15,552 [INFO] Raw saved: output\raw_data\Gainer_HSI\6690.HK.csv
+2025-08-18 18:58:15,555 [INFO] Latest(as_of): 2025-08-18 Close=25.440001 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=24.850000
+2025-08-18 18:58:15,555 [INFO] Return = 25.440001 - 24.850000 = 0.590000 | Volumn(2025-07-18, 2025-08-18] = 292098212 | Gainer = 172337989.650650
+2025-08-18 18:58:15,556 [INFO] ==== [06862.HK 海底撈] yfinance ticker = 6862.HK | end_date=latest
+2025-08-18 18:58:15,556 [INFO] Downloading from yfinance: 6862.HK (end=latest)
+2025-08-18 18:58:15,816 [INFO] Got 90 rows for 6862.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:15,818 [INFO] Raw saved: output\raw_data\Gainer_HSI\6862.HK.csv
+2025-08-18 18:58:15,821 [INFO] Latest(as_of): 2025-08-18 Close=14.010000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=13.920000
+2025-08-18 18:58:15,821 [INFO] Return = 14.010000 - 13.920000 = 0.090000 | Volumn(2025-07-18, 2025-08-18] = 510272283 | Gainer = 45924583.331371
+2025-08-18 18:58:15,822 [INFO] ==== [09618.HK 京東集團－ＳＷ] yfinance ticker = 9618.HK | end_date=latest
+2025-08-18 18:58:15,822 [INFO] Downloading from yfinance: 9618.HK (end=latest)
+2025-08-18 18:58:16,051 [INFO] Got 90 rows for 9618.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:16,053 [INFO] Raw saved: output\raw_data\Gainer_HSI\9618.HK.csv
+2025-08-18 18:58:16,056 [INFO] Latest(as_of): 2025-08-18 Close=124.000000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=128.199997
+2025-08-18 18:58:16,056 [INFO] Return = 124.000000 - 128.199997 = -4.199997 | Volumn(2025-07-18, 2025-08-18] = 304218057 | Gainer = -1277714911.000168
+2025-08-18 18:58:16,057 [INFO] ==== [09633.HK 農夫山泉] yfinance ticker = 9633.HK | end_date=latest
+2025-08-18 18:58:16,057 [INFO] Downloading from yfinance: 9633.HK (end=latest)
+2025-08-18 18:58:16,306 [INFO] Got 90 rows for 9633.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:16,308 [INFO] Raw saved: output\raw_data\Gainer_HSI\9633.HK.csv
+2025-08-18 18:58:16,311 [INFO] Latest(as_of): 2025-08-18 Close=46.400002 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=43.000000
+2025-08-18 18:58:16,311 [INFO] Return = 46.400002 - 43.000000 = 3.400002 | Volumn(2025-07-18, 2025-08-18] = 178460576 | Gainer = 606766230.709229
+2025-08-18 18:58:16,312 [INFO] ==== [09888.HK 百度集團－ＳＷ] yfinance ticker = 9888.HK | end_date=latest
+2025-08-18 18:58:16,312 [INFO] Downloading from yfinance: 9888.HK (end=latest)
+2025-08-18 18:58:16,571 [INFO] Got 90 rows for 9888.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:16,583 [INFO] Raw saved: output\raw_data\Gainer_HSI\9888.HK.csv
+2025-08-18 18:58:16,585 [INFO] Latest(as_of): 2025-08-18 Close=87.900002 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=86.000000
+2025-08-18 18:58:16,585 [INFO] Return = 87.900002 - 86.000000 = 1.900002 | Volumn(2025-07-18, 2025-08-18] = 198726503 | Gainer = 377580658.932579
+2025-08-18 18:58:16,586 [INFO] ==== [09901.HK 新東方－Ｓ] yfinance ticker = 9901.HK | end_date=latest
+2025-08-18 18:58:16,586 [INFO] Downloading from yfinance: 9901.HK (end=latest)
+2025-08-18 18:58:16,834 [INFO] Got 90 rows for 9901.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:16,836 [INFO] Raw saved: output\raw_data\Gainer_HSI\9901.HK.csv
+2025-08-18 18:58:16,838 [INFO] Latest(as_of): 2025-08-18 Close=37.840000 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=39.900002
+2025-08-18 18:58:16,838 [INFO] Return = 37.840000 - 39.900002 = -2.060001 | Volumn(2025-07-18, 2025-08-18] = 157630317 | Gainer = -324718669.492298
+2025-08-18 18:58:16,839 [INFO] ==== [09961.HK 攜程集團－Ｓ] yfinance ticker = 9961.HK | end_date=latest
+2025-08-18 18:58:16,839 [INFO] Downloading from yfinance: 9961.HK (end=latest)
+2025-08-18 18:58:17,067 [INFO] Got 90 rows for 9961.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:17,079 [INFO] Raw saved: output\raw_data\Gainer_HSI\9961.HK.csv
+2025-08-18 18:58:17,081 [INFO] Latest(as_of): 2025-08-18 Close=497.799988 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=498.000000
+2025-08-18 18:58:17,081 [INFO] Return = 497.799988 - 498.000000 = -0.200012 | Volumn(2025-07-18, 2025-08-18] = 41853220 | Gainer = -8371154.903564
+2025-08-18 18:58:17,082 [INFO] ==== [09988.HK 阿里巴巴－Ｗ] yfinance ticker = 9988.HK | end_date=latest
+2025-08-18 18:58:17,082 [INFO] Downloading from yfinance: 9988.HK (end=latest)
+2025-08-18 18:58:17,334 [INFO] Got 90 rows for 9988.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:17,336 [INFO] Raw saved: output\raw_data\Gainer_HSI\9988.HK.csv
+2025-08-18 18:58:17,338 [INFO] Latest(as_of): 2025-08-18 Close=118.599998 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=115.800003
+2025-08-18 18:58:17,338 [INFO] Return = 118.599998 - 115.800003 = 2.799995 | Volumn(2025-07-18, 2025-08-18] = 1632871835 | Gainer = 4572033663.305931
+2025-08-18 18:58:17,340 [INFO] ==== [09999.HK 網易－Ｓ] yfinance ticker = 9999.HK | end_date=latest
+2025-08-18 18:58:17,340 [INFO] Downloading from yfinance: 9999.HK (end=latest)
+2025-08-18 18:58:17,590 [INFO] Got 90 rows for 9999.HK (2025-04-08 → 2025-08-18)
+2025-08-18 18:58:17,593 [INFO] Raw saved: output\raw_data\Gainer_HSI\9999.HK.csv
+2025-08-18 18:58:17,596 [INFO] Latest(as_of): 2025-08-18 Close=204.199997 | Target month-ago: 2025-07-18 -> chosen: 2025-07-18 Close=213.199997
+2025-08-18 18:58:17,596 [INFO] Return = 204.199997 - 213.199997 = -9.000000 | Volumn(2025-07-18, 2025-08-18] = 118128540 | Gainer = -1063156860.000000
+2025-08-18 18:58:17,597 [INFO] First pass completed. successes=85, failures=0
+2025-08-18 18:58:17,597 [INFO] No failures in first pass; skip retry.
+2025-08-18 18:58:17,624 [INFO] Results saved: output\raw_data\hsi_gainer_results.xlsx (rows=86)
+2025-08-18 18:58:17,624 [INFO] No failures remaining after retry.

@@ -1,0 +1,27 @@
+Record Date：记录日期（月末）。
+
+Security Type Description：证券类型/大类：
+
+Marketable（可交易：能在二级市场买卖），
+
+Nonmarketable（不可交易：仅特定对象持有，不可转让），
+
+以及各自的合计行 Total Marketable、Total Nonmarketable，和总合计 Total Public Debt Outstanding。
+国会网
+联邦储备委员会
+
+Security Class Description：证券券种/子类：
+
+可交易类常见：Bills（短端贴现券）、Notes（2–10年固息）、Bonds（>10年固息）、Floating Rate Notes（浮息债，FRN）、Treasury Inflation-Protected Securities（TIPS）。
+
+不可交易类常见：Government Account Series（GAS，各联邦信托基金持有）、State and Local Government Series（SLGS，州地方政府专用）、United States Savings Securities（储蓄债）、Federal Financing Bank、Domestic Series、Other。合计行多用 _ 作为占位。
+数据.gov
+
+Debt Held by the Public (in Millions)：公众持有的联邦债务（除去政府自身账户，包含个人、机构、外国官方/机构、联储等）。
+fiscaldata.treasury.gov
+
+Intragovernmental Holdings (in Millions)：政府内部持有（联邦政府各类信托基金等持有的非流通国债，如社保、医保信托基金的持仓）。
+fiscaldata.treasury.gov
+联邦储备委员会
+
+Total Public Debt Outstanding (in Millions)：总联邦公债余额，即上两列之和（你表里逐月都能验证，差值≈0，仅有四舍五入误差）。

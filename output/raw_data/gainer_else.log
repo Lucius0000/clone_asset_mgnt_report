@@ -1,0 +1,20 @@
+2025-08-18 16:48:35,678 [INFO] Log file: output\raw_data\gainer_else.log
+2025-08-18 16:48:35,678 [INFO] Console logging enabled: False
+2025-08-18 16:48:35,678 [INFO] === Starting Gainer computation ===
+2025-08-18 16:48:35,678 [INFO] Fetching data for BTC-USD (period=90d, interval=1d)
+2025-08-18 16:48:35,918 [INFO] [BTC-USD] Raw data saved to output\raw_data\BTC-USD.csv; rows=90; range: 2025-05-21 → 2025-08-18
+2025-08-18 16:48:35,919 [INFO] [BTC-USD] Latest close date chosen: 2025-08-18; Close=115307.976562
+2025-08-18 16:48:35,920 [INFO] [BTC-USD] Month-ago reference target: 2025-07-18; selected trading day: 2025-07-18; Close=118003.226562
+2025-08-18 16:48:35,921 [INFO] [BTC-USD] Return = Latest Close - Month-ago Close = 115307.976562 - 118003.226562 = -2695.250000
+2025-08-18 16:48:35,921 [INFO] [BTC-USD] Volumn sum over (2025-07-18, 2025-08-18] = 2047500790470
+2025-08-18 16:48:35,922 [INFO] [BTC-USD] Gainer = Return * Volumn = -2695.250000 * 2047500790470 = -5518526505514268.000000
+2025-08-18 16:48:35,922 [INFO] Fetching data for GLD (period=90d, interval=1d)
+2025-08-18 16:48:36,217 [INFO] [GLD] Raw data saved to output\raw_data\GLD.csv; rows=90; range: 2025-04-08 → 2025-08-15
+2025-08-18 16:48:36,219 [INFO] [GLD] Latest close date chosen: 2025-08-15; Close=307.429993
+2025-08-18 16:48:36,219 [INFO] [GLD] Month-ago reference target: 2025-07-15; selected trading day: 2025-07-15; Close=306.730011
+2025-08-18 16:48:36,219 [INFO] [GLD] Return = Latest Close - Month-ago Close = 307.429993 - 306.730011 = 0.699982
+2025-08-18 16:48:36,220 [INFO] [GLD] Volumn sum over (2025-07-15, 2025-08-15] = 221899000
+2025-08-18 16:48:36,220 [INFO] [GLD] Gainer = Return * Volumn = 0.699982 * 221899000 = 155325236.907959
+2025-08-18 16:48:36,227 [INFO] Saved results to output\gainer_else.xlsx
+2025-08-18 16:48:36,229 [INFO] Top instrument by Gainer: GLD (0.16 B USD)
+2025-08-18 16:48:36,229 [INFO] === Completed Gainer computation ===
