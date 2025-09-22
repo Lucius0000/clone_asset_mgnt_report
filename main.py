@@ -1,61 +1,51 @@
-"""
-直接执行该代码，即可调用其余各个脚本，方便一键执行指标分析
-"""
+"""一键串联所有专题脚本，统一触发指标生成流程。"""
 
+from __future__ import annotations
+
+import importlib
 import logging
+from types import ModuleType
+from typing import Callable, Optional
+
 
 # 配置日志格式
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-def main(debug=False):
-        
-    try:
-        import cpi
-        cpi.main(debug=debug)
-    except Exception as e:
-        logging.error(f"cpi 执行失败: {e}")
 
-    try:
-        import GDP_new
-        GDP_new.main(debug=debug)
-    except Exception as e:
-        logging.error(f"GDP_new 执行失败: {e}")
+Runner = Optional[Callable[[ModuleType], None]]
 
 
+def _run_task(module_name: str, runner: Runner, debug: bool) -> None:
+    """Import module and optionally call its runner."""
+    logging.info("开始执行 %s", module_name)
     try:
-        import interest_rate
-        interest_rate.main(debug=debug)
-    except Exception as e:
-        logging.error(f"interest_rate 执行失败: {e}")
+        module = importlib.import_module(module_name)
+        if runner is not None:
+            runner(module)
+        logging.info("%s 执行完成", module_name)
+    except Exception as exc:  # pragma: no cover - 防御性日志
+        logging.error("%s 执行失败: %s", module_name, exc, exc_info=debug)
 
-    try:
-        import carry_trade
-        carry_trade.main(debug=debug)
-    except Exception as e:
-        logging.error(f"carry_trade 执行失败: {e}")
-  
-    try:
-        import asset_stock_index
-        asset_stock_index.main(debug=debug)
-    except Exception as e:
-        logging.error(f"asset_stock_index 执行失败: {e}")
 
-    try:
-        import currency
-        currency.main(debug=debug)
-    except Exception as e:
-        logging.error(f"currency 执行失败: {e}")
-        
-    try:
-        import precious_metals
-    except Exception as e:
-        logging.error(f"precious_metals 执行失败: {e}")
-        
-    try:
-        import bonds
-    except Exception as e:
-        logging.error(f"bonds 执行失败: {e}")
-        
+def main(debug: bool = False) -> None:
+    """Run all indicator scripts in sequence."""
+
+    tasks: list[tuple[str, Runner]] = [
+        ("cpi", lambda mod: mod.main(debug=debug)),
+        ("GDP_new", lambda mod: mod.main(debug=debug)),
+        ("interest_rate", lambda mod: mod.main(debug=debug)),
+        ("carry_trade", lambda mod: mod.main(debug=debug)),
+        ("asset_stock_index", lambda mod: mod.main(debug=debug)),
+        ("currency", lambda mod: mod.main(debug=debug)),
+        ("crypto_market_report", lambda mod: mod.main(debug=debug)),
+        # 以下脚本在导入时即会执行主流程
+        ("precious_metals", None),
+        ("bonds", None),
+    ]
+
+    for module_name, runner in tasks:
+        _run_task(module_name, runner, debug)
+
 
 if __name__ == "__main__":
     main()
