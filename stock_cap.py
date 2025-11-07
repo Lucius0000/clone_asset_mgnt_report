@@ -11,44 +11,69 @@ import time
 import glob
 import random
 
-
 def get_hs300_cap():
-    '''
-    获取沪深300总市值
-    '''
-    '''
-    获取沪深300成分股列表
-           品种代码  品种名称        纳入日期
-    0    302132  中航成飞  2025-06-16
-    1    001391   国货航  2025-06-16
-    2    688047  龙芯中科  2025-06-16
-    3    002600  领益智造  2025-06-16
-    4    601077  渝农商行  2025-06-16
-    '''
-    hs300_df = ak.index_stock_cons(symbol="000300")
+    """
+    获取沪深300总市值（将 hs300 与实时行情按 6 位证券代码合并）
+    """
+    def normalize_code(series: pd.Series) -> pd.Series:
+        # 转字符串 → 去非数字 → 取末6位 → 不足补零
+        return (
+            series.astype(str)
+                  .str.replace(r"\D", "", regex=True)  # 去掉非数字，如 ".SZ"、空格
+                  .str[-6:]                             # 末6位
+                  .str.zfill(6)                         # 补零到6位
+        )
 
-    ''' 获取行情， Index(['序号', '代码', '名称', '最新价', '涨跌幅', '涨跌额', '成交量', '成交额', '振幅', '最高', '最低',
-    '今开', '昨收', '量比', '换手率', '市盈率-动态', '市净率', '总市值', '流通市值', '涨速', '5分钟涨跌',
-    '60日涨跌幅', '年初至今涨跌幅']
-    '''
+    # 读取本地表格
+    file_path = "data/000300cons.xls"
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"未找到文件 {file_path}，请检查文件路径。")
+
+    # 读取并确保成分代码为字符串
+    hs300_df = pd.read_excel(file_path, dtype={"成份券代码Constituent Code": str})
+
+    # 列校验
+    if "成份券代码Constituent Code" not in hs300_df.columns:
+        raise RuntimeError("Excel文件中未找到 '成份券代码Constituent Code'")
+
+    # 标准化成分代码
+    hs300_df["成份券代码Constituent Code"] = normalize_code(hs300_df["成份券代码Constituent Code"])
+
+    # 获取A股实时行情
     spot_df = ak.stock_zh_a_spot_em()
 
-    merged = pd.merge(hs300_df, spot_df, left_on="品种代码", right_on="代码")
-    merged["总市值"] = pd.to_numeric(merged["总市值"], errors="coerce")
+    # 标准化行情代码列
+    if "代码" not in spot_df.columns:
+        raise RuntimeError("实时行情数据中未找到 '代码' 列")
+    spot_df["代码"] = normalize_code(spot_df["代码"])
 
-    # 适配输出格式
+    # 合并
+    merged = pd.merge(
+        hs300_df,
+        spot_df,
+        left_on="成份券代码Constituent Code",
+        right_on="代码",
+        how="inner"
+    )
+
+    # 数值化总市值
+    merged["总市值"] = pd.to_numeric(merged.get("总市值"), errors="coerce")
+
+    # 汇总并格式化
     total_market_cap_billion = merged["总市值"].sum() / 1e9  # 元 -> 十亿元
     formatted_cap = f"{total_market_cap_billion:,.0f} B CNY"
 
-    result_df = merged[["品种名称", "代码", "总市值"]].copy()
-    result_df["总市值（B CNY）"] = result_df["总市值"] / 1e9
-    result_df["总市值（B CNY）"] = result_df["总市值（B CNY）"].map(lambda x: f"{x:,.2f} B CNY")
-    result_df = result_df.sort_values(by="总市值", ascending=False)
+    # 明细输出
+    cols_exist = [c for c in ["品种名称", "代码", "总市值"] if c in merged.columns]
+    result_df = merged[cols_exist].copy()
+    if "总市值" in result_df.columns:
+        result_df["总市值（B CNY）"] = (result_df["总市值"] / 1e9).map(lambda x: f"{x:,.2f} B CNY")
+        result_df = result_df.sort_values(by="总市值", ascending=False)
 
-    # print(result_df.head(10))
-    # print(f"沪深300总市值为：{formatted_cap}")
+    # 保存
+    os.makedirs("output/raw_data", exist_ok=True)
     result_df.to_excel("output/raw_data/沪深300_成分股市值明细.xlsx", index=False)
-    
+
     return formatted_cap
 
 def get_hsi_cap():

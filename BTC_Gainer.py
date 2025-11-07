@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Sep  1 21:21:56 2025
-
-@author: Lucius
-"""
-
 from pycoingecko import CoinGeckoAPI
 import pandas as pd
 from datetime import datetime, timedelta, timezone
@@ -90,9 +83,9 @@ Gainer = mcap_new - mcap_old
 
 # 输出
 print("\n=== 比特币总市值（USD） ===")
-print(f"{old_date}  市值: {format_usd(mcap_old)}  ({format_billion(mcap_old)})")
-print(f"{new_date}  市值: {format_usd(mcap_new)}  ({format_billion(mcap_new)})")
-print(f"\nGainer = 新日期 - 旧日期 = {format_usd(Gainer)}  ({format_billion(Gainer)})")
+print(f"{old_date}  市值: {format_usd(mcap_old)}  ({format_billion(mcap_old)} USD)")
+print(f"{new_date}  市值: {format_usd(mcap_new)}  ({format_billion(mcap_new)} USD)")
+print(f"\nGainer = 新日期 - 旧日期 = {format_usd(Gainer)}  ({format_billion(Gainer)} USD)")
 
 # 为了在 Spyder 变量窗中可直接查看差值，保留变量名 Gainer
 Gainer

@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 def main(debug=False):
-        
+    '''
     try:
         import cpi
         cpi.main(debug=debug)
@@ -20,7 +20,6 @@ def main(debug=False):
         GDP_new.main(debug=debug)
     except Exception as e:
         logging.error(f"GDP_new 执行失败: {e}")
-
 
     try:
         import interest_rate
@@ -50,11 +49,18 @@ def main(debug=False):
         import precious_metals
     except Exception as e:
         logging.error(f"precious_metals 执行失败: {e}")
-        
+        '''
     try:
         import bonds
+        bonds.main(debug=debug)  # debug=False 自动最近周五；debug=True 需要输入
     except Exception as e:
         logging.error(f"bonds 执行失败: {e}")
+
+    try:
+        import crypto_market_report as crypto_market_report
+        crypto_market_report.main(debug=debug)
+    except Exception as e:
+        logging.error(f"crypto_market_report 执行失败: {e}")
         
 
 if __name__ == "__main__":

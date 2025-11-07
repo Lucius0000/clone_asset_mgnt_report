@@ -10,9 +10,6 @@ Index free-float market cap (approx) at two dates with Gainer.
     * HSI via latest data/AASTOCKS_Export*.xlsx (both dates use the same file)
 - Features: logging, retry with backoff+jitter, tqdm progress bar
 - NEW: save per-ticker details (close, float shares, market cap) into output/raw_data
-
-Requirements:
-    pip install yfinance akshare pandas openpyxl tqdm requests
 """
 
 import os
@@ -48,12 +45,6 @@ import akshare as ak
 os.environ['http_proxy'] = 'http://127.0.0.1:7890'
 os.environ['https_proxy'] = 'http://127.0.0.1:7890'
 
-# =========================
-# User settings (edit here)
-# =========================
-DATE_OLD = "2025-08-22"   # 旧日期（含当天，若当天休市，将回溯至最近一交易日）
-DATE_NEW = "2025-08-29"   # 新日期（含当天，同上规则）
-
 # 目录
 DATA_DIR = "data"
 RAW_DIR = os.path.join("output", "raw_data")
@@ -72,9 +63,8 @@ ch.setFormatter(fmt)
 logger.handlers = [fh, ch]
 
 
-# =========================
-# Helpers: retry & parsing
-# =========================
+# retry 装饰函数: 实现重试机制。
+# 若函数调用失败，会按照指数回退（exponential backoff）策略重新尝试，最多重试4次。
 def retry(max_retries=4, base_delay=1.5, jitter=(0.2, 0.9), exceptions=(Exception,)):
     """Decorator: exponential backoff with jitter."""
     def deco(fn):
@@ -178,9 +168,7 @@ def _nearest_cap_with_details(ticker: str, dates: Tuple[str, str]) -> Dict[str, 
     return out
 
 
-# =======================================
-# Constituents
-# =======================================
+# 获取三个股指的成分股名录
 @retry()
 def get_sp500_symbols() -> List[str]:
     """
@@ -251,40 +239,45 @@ def get_hsi_symbols_from_excel() -> List[str]:
     syms = [_hk_fix_code_like_aastocks(x) for x in df[code_col].astype(str).tolist()]
     return syms
 
-
-@retry()
 def get_hs300_symbols() -> List[str]:
     """
-    Get HS300 constituents via ak.index_stock_cons("000300") —> 品种代码
-    Then test .SS / .SZ to see which works in yfinance.
+    从本地Excel文件加载沪深300成分股，根据"成份券代码"和"交易所"列生成后缀。
+    保证成份券代码保持完整，保留前导零。
     """
-    df = ak.index_stock_cons(symbol="000300")
-    if "品种代码" not in df.columns:
-        raise RuntimeError("ak.index_stock_cons 返回未包含‘品种代码’列。")
-    codes = df["品种代码"].astype(str).str.strip().tolist()
+    # 读取本地表格
+    file_path = os.path.join(DATA_DIR, "000300cons.xls")
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"未找到文件 {file_path}，请检查文件路径。")
+    
+    df = pd.read_excel(file_path, dtype={"成份券代码Constituent Code": str})
 
-    chosen = []
-    logger.info("尝试为沪深代码选择 .SS / .SZ 后缀以匹配 yfinance ...")
-    for code in tqdm(codes, desc="HS300 映射", ncols=90):
-        candidates = [f"{code}.SS", f"{code}.SZ"] if code.startswith("6") else [f"{code}.SZ", f"{code}.SS"]
-        picked = None
-        for ticker in candidates:
-            try:
-                px = _yf_download_close(ticker, DATE_NEW)
-                if px is not None:
-                    picked = ticker
-                    break
-            except Exception:
-                continue
-        if picked is None:
-            picked = f"{code}.SZ"
-        chosen.append(picked)
-    return chosen
+    # 检查表格是否包含需要的列
+    if "成份券代码Constituent Code" not in df.columns or "交易所Exchange" not in df.columns:
+        raise RuntimeError("Excel文件中未找到 '成份券代码Constituent Code' 或 '交易所Exchange' 列。")
 
+    # 根据“成份券代码”和“交易所Exchange”列生成股票代码
+    symbols = []
+    for _, row in df.iterrows():
+        code = row["成份券代码Constituent Code"].strip()  # 保证去掉多余的空格
+        exchange = str(row["交易所Exchange"]).strip()
 
-# =========================
-# Aggregation per index
-# =========================
+        # 根据交易所确定后缀
+        if exchange == "深圳证券交易所":
+            suffix = ".SZ"
+        elif exchange == "上海证券交易所":
+            suffix = ".SS"
+        else:
+            logger.warning(f"无法识别的交易所：{exchange}，跳过 {code}")
+            continue
+
+        # 生成完整的股票代码
+        full_code = f"{code}{suffix}"
+        symbols.append(full_code)
+
+    return symbols
+
+# 市值计算：接受成分股列表和两个日期，遍历每只股票，获取其在这两个日期的收盘价和流通股数，计算市值。
+# 重试机制：如果某只股票数据获取失败，会记录并进行二次尝试。
 def compute_index_caps(symbols: List[str], date_old: str, date_new: str, unit: str, name: str) -> Tuple[Optional[float], Optional[float]]:
     """
     For a list of yfinance symbols, compute total free-float cap at two dates.
@@ -440,6 +433,9 @@ def compute_index_caps(symbols: List[str], date_old: str, date_new: str, unit: s
 
 
 def main():
+    DATE_OLD = input("请输入旧日期（YYYY-MM-DD）：")  # 旧日期（含当天，若当天休市，将回溯至最近一交易日）
+    DATE_NEW = input("请输入新日期（YYYY-MM-DD）：")  # 新日期（含当天，同上规则）
+
     logger.info(f"==== 开始计算（{DATE_OLD} vs {DATE_NEW}）====")
 
     # ---- Constituents ----
@@ -451,7 +447,7 @@ def main():
     hsi_syms = get_hsi_symbols_from_excel()
     logger.info(f"恒生指数 数量：{len(hsi_syms)}")
 
-    logger.info("加载 沪深300 名录（akshare）并映射至 yfinance ...")
+    logger.info("加载 沪深300 名录（Excel）")
     hs300_syms = get_hs300_symbols()
     logger.info(f"沪深300 数量：{len(hs300_syms)}")
 

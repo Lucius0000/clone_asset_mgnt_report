@@ -150,6 +150,16 @@ def main(debug = False):
 
     # 计算指标
     metrics_df = calculate_metrics(fx_data)
+    # 删去 MoM参考日期 和 YoY参考日期 列（兼容不同列名编码情况）
+    try:
+        drop_cols = [
+            c for c in metrics_df.columns
+            if ("MoM" in str(c) and "参考" in str(c)) or ("YoY" in str(c) and "参考" in str(c))
+        ]
+        if drop_cols:
+            metrics_df = metrics_df.drop(columns=drop_cols, errors='ignore')
+    except Exception:
+        pass
     metrics_df.to_excel("output/fx_metrics.xlsx", index=False)
     print(metrics_df)
 

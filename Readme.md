@@ -1,10 +1,11 @@
 ### 一、`asset_mgnt_report`项目概述
 - 执行`main.py`即可调用各个子脚本，获取CPI、GDP、货币利率、货币利差、股票权益、债券、商品与贵金属、货币汇率等数据，并输出在`output`子文件夹。
+- 执行`Gainer.py`，调用四个资产大类的Gainer计算脚本，并输出总结表格在`output`子文件夹。
 - 需要单独执行`整体.py`，计算Sharpe Ratio、 Top Gainer，输出`周报-资产大类表现-整体`表格在`output`子文件夹。
 
 ### 二、前置准备
 
-####  1. 主要通过AKShare和FRED等金融数据库自动化获取数据，但是有少量数据需要提前下载至`data`子文件夹：
+####  1. 主要通过AKShare、yfinance和FRED等金融数据库自动化获取数据，但是有少量数据需要提前下载至`data`子文件夹：
 
 > 已经设置了文件名正则匹配，更新文件后不需要修改代码
 
@@ -13,6 +14,10 @@
 
 - 恒生指数成分股 [指數及成份股 - 指數成份股 - 恆生指數](http://www.aastocks.com/tc/stocks/market/index/hk-index-con.aspx?index=HSI)
 ![HSI_CAP 获取图](assets/HSI_CAP.png)
+
+- 美国财政部公布的流通国债总票面价值 [U.S. Treasury Monthly Statement of the Public Debt (MSPD)](https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/summary-of-treasury-securities-outstanding) ![MSPD获取图](assets/MSPD.png)
+
+- 沪深300成分股名录 [沪深300指数 (000300)](https://www.csindex.com.cn/uploads/file/autofile/cons#/indices/family/detail?indexCode=000300) ![HS300_list获取图](assets/HS300_list.png)
 
 #### 2. “整体”表格
 

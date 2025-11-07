@@ -1,0 +1,5 @@
+﻿ticker,missing_old,missing_new,retried,recovered_old,recovered_new
+KMX,0,0,1,1,0
+NXPI,0,0,1,0,1
+RCL,0,0,1,1,1
+WBA,1,1,1,0,0
