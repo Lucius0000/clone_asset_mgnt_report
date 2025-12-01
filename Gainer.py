@@ -1,8 +1,8 @@
 """
-Aggregate Gainer metrics across bonds, equities, gold, and bitcoin with extra progress hints.
-
-This script keeps the original asset calculators untouched, orchestrates their outputs,
-and writes ``output/Gainer.xlsx`` in the required layout.
+计算Gainer
+对于美国市场债券，如果返回 0 B USD，可以根据 “MSPD_SumSecty_20241101_20251031.csv” 自行计算
+选取隔月'Total Marketable'的 Total Public Debt Outstanding (in Millions)
+= TEXT(F8/1000,"#,##") & " B USD"
 """
 
 from __future__ import annotations
@@ -199,15 +199,15 @@ def _compute_gold_caps(previous_price: float, current_price: float) -> Tuple[flo
 def main() -> None:
     today = datetime.today()
     default_current = today.replace(hour=0, minute=0, second=0, microsecond=0)
-    current_date = _prompt_date(f"请输入本周末日期（YYYY-MM-DD），周六最佳，回车默认 {default_current:%Y-%m-%d}： ", default=default_current)
+    current_date = _prompt_date(f"请输入本周末日期（YYYY-MM-DD），周六最佳，回车默认 {default_current:%Y-%m-%d}:", default=default_current)
     default_previous = current_date - timedelta(days=13)
     previous_date = _prompt_date(
-        f"请输入两周前周末日期（YYYY-MM-DD，回车默认 {default_previous:%Y-%m-%d}）： ",
+        f"请输入两周前周末日期（YYYY-MM-DD，回车默认 {default_previous:%Y-%m-%d}）：",
         default=default_previous,
     )
 
     print("\n请提供 LBMA Gold Price PM（USD/oz）")
-    print("LBMA src: https://www.lbma.org.uk/cn/prices-and-data#/")
+    print("src: https://www.lbma.org.uk/cn/prices-and-data#/")
     current_gold_price = Gold_Gainer._prompt_price("本周末价格：")
     previous_gold_price = Gold_Gainer._prompt_price("两周前周末价格：")
     

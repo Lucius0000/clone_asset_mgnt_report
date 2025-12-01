@@ -3,13 +3,125 @@
 '''
 
 import pandas as pd
-import akshare as ak
 import os
 import requests
 from io import StringIO
 import time
 import glob
 import random
+import yfinance as yf
+from tqdm import tqdm
+import logging
+from datetime import datetime
+
+os.environ['http_proxy'] = 'http://127.0.0.1:7890'
+os.environ['https_proxy'] = 'http://127.0.0.1:7890'
+
+
+# 日志初始化
+os.makedirs("output/raw_data", exist_ok=True)
+LOG_FILE = "output/raw_data/yf_marketcap_log.txt"
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode="a",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
+
+
+def _safe_float(x, default=None):
+    try:
+        if x is None or (isinstance(x, float) and pd.isna(x)):
+            return default
+        return float(x)
+    except Exception:
+        return default
+
+
+def _retry(func, *args, max_retries=4, base_delay=1.5, jitter=(0.2, 0.8), **kwargs):
+    """
+    指数退避 + 抖动：对 func 进行最多 max_retries 次调用；
+    抛异常或返回 None 都会重试。等待时间：base_delay**attempt + random[jitter]
+    """
+    attempt = 0
+    while True:
+        try:
+            res = func(*args, **kwargs)
+            if res is not None:
+                return res
+            raise RuntimeError("Empty result")
+        except Exception:
+            if attempt >= max_retries:
+                raise
+            sleep_s = (base_delay ** attempt) + random.uniform(*jitter)
+            time.sleep(sleep_s)
+            attempt += 1
+
+
+def _yf_fetch_market_cap_with_method(ticker_symbol: str):
+    """
+    只用两种方法：
+    1) get_info()['marketCap']
+    2) price × shares（price=最近收盘；shares=优先 get_shares_full()，否则 get_info()['sharesOutstanding']）
+    返回 (market_cap: float|None, method: str in {"get_info","calc","fail"})
+    """
+    t = yf.Ticker(ticker_symbol)
+
+    # 1) 直接从 get_info 取 marketCap
+    info = None
+    try:
+        info = t.get_info()  # 新版/旧版兼容
+        mc = _safe_float((info or {}).get("marketCap"))
+        if mc and mc > 0:
+            return mc, "get_info"
+    except Exception:
+        pass
+
+    # 2) 自行计算：收盘价 × 股本
+    price = None
+    shares = None
+
+    # 收盘价
+    try:
+        hist = t.history(period="5d")
+        if hist is not None and not hist.empty:
+            price = _safe_float(hist["Close"].dropna().iloc[-1])
+    except Exception:
+        price = None
+
+    # 股本优先 get_shares_full（若不可用再从 info 兜底）
+    try:
+        sf = t.get_shares_full()
+        if sf is not None and not sf.empty:
+            shares = _safe_float(sf.iloc[-1])
+    except Exception:
+        shares = None
+
+    if shares is None and info is not None:
+        shares = _safe_float(info.get("sharesOutstanding"))
+
+    if price is not None and shares is not None and price > 0 and shares > 0:
+        return price * shares, "calc"
+
+    return None, "fail"
+
+
+def _yf_market_caps_bulk(tickers, sleep_between=0.0, desc="Fetching"):
+    """
+    逐只调用 _yf_fetch_market_cap_with_method（为了稳妥与兼容），带进度条。
+    返回 DataFrame：['代码','market_cap','method']
+    """
+    records = []
+    for sym in tqdm(tickers, desc=desc):
+        try:
+            mc, mtd = _retry(_yf_fetch_market_cap_with_method, sym, max_retries=3)
+        except Exception:
+            mc, mtd = None, "fail"
+        records.append({"代码": sym, "market_cap": mc, "method": mtd})
+        if sleep_between > 0:
+            time.sleep(sleep_between)
+    return pd.DataFrame(records)
+
 
 def get_hs300_cap():
     """
@@ -39,32 +151,36 @@ def get_hs300_cap():
     # 标准化成分代码
     hs300_df["成份券代码Constituent Code"] = normalize_code(hs300_df["成份券代码Constituent Code"])
 
-    # 获取A股实时行情
-    spot_df = ak.stock_zh_a_spot_em()
+    # 映射到 yfinance 代码：'6' 开头 -> 上证 '.SS'； 其他常见（0/3）-> 深证 '.SZ'
+    def cn_to_yf(code6: str) -> str:
+        c = (code6 or "").strip()
+        if c.startswith("6"):
+            return f"{c}.SS"
+        else:
+            return f"{c}.SZ"
 
-    # 标准化行情代码列
-    if "代码" not in spot_df.columns:
-        raise RuntimeError("实时行情数据中未找到 '代码' 列")
-    spot_df["代码"] = normalize_code(spot_df["代码"])
+    hs300_df["代码"] = hs300_df["成份券代码Constituent Code"].map(cn_to_yf)
 
-    # 合并
+    # 用 yfinance 获取市值
+    caps_df = _yf_market_caps_bulk(hs300_df["代码"].tolist(), sleep_between=0.0, desc="HS300")
     merged = pd.merge(
         hs300_df,
-        spot_df,
-        left_on="成份券代码Constituent Code",
-        right_on="代码",
+        caps_df,
+        on="代码",
         how="inner"
     )
 
     # 数值化总市值
-    merged["总市值"] = pd.to_numeric(merged.get("总市值"), errors="coerce")
+    merged["总市值"] = pd.to_numeric(merged.get("market_cap"), errors="coerce")
 
-    # 汇总并格式化
+    # 汇总并格式化（CNY）
     total_market_cap_billion = merged["总市值"].sum() / 1e9  # 元 -> 十亿元
     formatted_cap = f"{total_market_cap_billion:,.0f} B CNY"
 
-    # 明细输出
+    # 明细输出（尽量复用原列名）
     cols_exist = [c for c in ["品种名称", "代码", "总市值"] if c in merged.columns]
+    if not cols_exist:
+        cols_exist = ["代码", "总市值"]
     result_df = merged[cols_exist].copy()
     if "总市值" in result_df.columns:
         result_df["总市值（B CNY）"] = (result_df["总市值"] / 1e9).map(lambda x: f"{x:,.2f} B CNY")
@@ -74,7 +190,12 @@ def get_hs300_cap():
     os.makedirs("output/raw_data", exist_ok=True)
     result_df.to_excel("output/raw_data/沪深300_成分股市值明细.xlsx", index=False)
 
+    # —— 日志：记录方法统计 —— 
+    method_counts = caps_df["method"].value_counts().to_dict()
+    logging.info(f"HS300 method stats: {method_counts}")
+
     return formatted_cap
+
 
 def get_hsi_cap():
     '''
@@ -83,37 +204,65 @@ def get_hsi_cap():
     获取恒生指数成分股市值：https://www.aastocks.com/tc/stocks/market/index/hk-index-con.aspx?index=HSI
     需下载excel格式，放置在data文件夹下
     '''
-    # 读取文件
+    # 读取文件（仅作“成分股名录”，不再使用表内“市值”列）
     files = glob.glob(os.path.join("data", "AASTOCKS_Export*.xlsx"))
     if not files:
         raise FileNotFoundError("未找到匹配的 AASTOCKS_Export*.xlsx 文件")
     file_path = max(files, key=os.path.getmtime)
     df = pd.read_excel(file_path)
 
-    # 清洗“市值”字段（如“1,838.42億” -> 1838.42）
-    df["市值（亿港元）"] = (
-        df["市值"]
-        .astype(str)
-        .str.replace("億", "", regex=False)
-        .str.replace(",", "", regex=False)
-        .astype(float)
-    )
+    # 代码列名兼容处理
+    if "代號" not in df.columns and "代号" in df.columns:
+        df.rename(columns={"代号": "代號"}, inplace=True)
+    if "代號" not in df.columns:
+        raise RuntimeError("Excel文件中未找到 '代號' 列")
 
-    # 计算市值（单位：十亿港元 B HKD）
-    df["市值（B HKD）"] = df["市值（亿港元）"] / 10
-    df["市值（B HKD）"] = df["市值（B HKD）"].map(lambda x: f"{x:,.2f} B HKD")
+    # —— 关键修复：若原表自带“市值”，先改名，避免合并后出现 _x/_y 后缀 —— 
+    if "市值" in df.columns:
+        df.rename(columns={"市值": "市值_AASTOCKS"}, inplace=True)
 
-    total_b = df["市值（亿港元）"].sum() / 10
+    # 代码转 yfinance：香港代码通常 4 位，左侧补零并加 .HK
+    def hk_to_yf(code_raw) -> str:
+        s = str(code_raw).strip()
+        s = ''.join(ch for ch in s if ch.isdigit())
+        s = s[-4:] if len(s) >= 4 else s.zfill(4)
+        return f"{s}.HK"
+
+    df["yf_code"] = df["代號"].map(hk_to_yf)
+
+    # —— 从 yfinance 获取市值（HKD），并带进度条 —— 
+    caps_df = _yf_market_caps_bulk(df["yf_code"].tolist(), sleep_between=0.0, desc="HSI")
+    # yfinance 的结果列显式命名为 市值_yf，避免与原表冲突
+    caps_df.rename(columns={"代码": "yf_code", "market_cap": "市值_yf"}, inplace=True)
+
+    # 合并至原表（不使用原“市值_AASTOCKS”列）
+    df = df.merge(caps_df, on="yf_code", how="left")
+
+    # 计算市值（单位：十亿港元 B HKD）—— 只基于 yfinance 的 市值_yf
+    df["市值_yf"] = pd.to_numeric(df["市值_yf"], errors="coerce")
+    df["市值（B HKD）"] = (df["市值_yf"] / 1e9).map(lambda x: f"{x:,.2f} B HKD")
+
+    total_b = df["市值_yf"].sum() / 1e9
     formatted_total = f"{total_b:,.0f} B HKD"
 
-    result_df = df[["名稱", "代號", "市值（B HKD）"]].sort_values(by="市值（B HKD）", ascending=False)
-
-    # print(f"恒生指数总市值为：{formatted_total}")
+    # 与原列尽量兼容
+    name_col = "名稱" if "名稱" in df.columns else ("名称" if "名称" in df.columns else None)
+    cols = []
+    if name_col:
+        cols.append(name_col)
+    cols.extend([c for c in ["代號", "市值（B HKD）"] if (c in df.columns) or (c == "市值（B HKD）")])
+    result_df = df[cols].sort_values(by="市值（B HKD）", ascending=False)
 
     # 保存结果
+    os.makedirs("output/raw_data", exist_ok=True)
     result_df.to_excel("output/raw_data/恒生指数成分股市值明细.xlsx", index=False)
-    
+
+    # —— 日志：记录方法统计 —— 
+    method_counts = caps_df["method"].value_counts().to_dict()
+    logging.info(f"HSI method stats: {method_counts}")
+
     return formatted_total
+
 
 def _validate_spot_df(df):
     """校验 ak.stock_us_spot() 的返回是否可用：非空且包含关键列"""
@@ -122,6 +271,7 @@ def _validate_spot_df(df):
         return (hasattr(df, "empty") and (not df.empty) and {"SYMBOL", "MKTCAP"}.issubset(cols))
     except Exception:
         return False
+
 
 def _call_with_backoff(func, *args, max_retries=4, base_delay=2.0, jitter=(0.3, 1.2), **kwargs):
     """
@@ -144,10 +294,13 @@ def _call_with_backoff(func, *args, max_retries=4, base_delay=2.0, jitter=(0.3, 
             time.sleep(sleep_s)
             attempt += 1
 
+
 def get_spy_cap(debug = False):
     """
     获取标普500市值信息，分别通过两个接口尝试并记录匹配情况与原始数据。
     @author: Lucius
+
+    —— 已改：市值改为从 yfinance 获取；保留原下载 constituents 与写盘逻辑 ——
     """
 
     # 初始化路径
@@ -174,89 +327,32 @@ def get_spy_cap(debug = False):
     # 加载并格式化 symbol 列表
     sp500_df = get_sp500_df(sp500_url, local_backup)
     sp500_df.columns = sp500_df.columns.str.upper()
-    symbols = sp500_df["SYMBOL"].astype(str).str.upper().str.strip().tolist()
-    symbols_upper = set(symbols)
+    symbols_raw = sp500_df["SYMBOL"].astype(str).str.upper().str.strip().tolist()
 
-    # 初始化数据和差异列表
-    final_df = pd.DataFrame()
-    unmatched_em = []
-    unmatched_final = []
-    null_stats = {} 
-    mismatch_stats = {} 
+    # yfinance 规范化：将 BRK.B -> BRK-B 这类点号改连字符
+    def us_to_yf(sym: str) -> str:
+        return sym.replace(".", "-")
 
+    yf_syms = [us_to_yf(s) for s in symbols_raw]
 
-    # 市值字段处理函数
-    def parse_market_cap(val):
-        try:
-            return float(str(val).replace(",", ""))
-        except:
-            return None
+    # —— 用 yfinance 获取所有成分市值（USD），带进度条 —— 
+    caps_df = _yf_market_caps_bulk(yf_syms, sleep_between=0.0, desc="S&P 500")
+    caps_df.rename(columns={"market_cap": "MKT_CAP_PARSED"}, inplace=True)
+    # 写盘原始
+    caps_df.to_excel(os.path.join(raw_data_dir, "sp500_yf_market_caps.xlsx"), index=False)
 
-    # 第一接口：stock_us_spot_em
-    try:
-        spot_em_df = ak.stock_us_spot_em()
-        spot_em_df.to_excel(os.path.join(raw_data_dir, "us_stock_us_spot_em.xlsx"), index=False)
+    # 匹配与落盘（尽量维持原字段与输出节奏）
+    final_df = caps_df.copy()
+    final_df["代码_CLEAN"] = final_df["代码"]
+    matched_df = final_df.copy()
 
-        spot_em_df.columns = spot_em_df.columns.str.upper()
-        spot_em_df["代码_CLEAN"] = spot_em_df["代码"].astype(str).str.upper().str.replace(r"^\d+\.", "", regex=True)
-        spot_em_df["SYMBOL"] = spot_em_df["代码_CLEAN"]
-
-        matched_em_df = spot_em_df[spot_em_df["代码_CLEAN"].isin(symbols_upper)].copy()
-        matched_em_df["MKT_CAP_PARSED"] = matched_em_df["总市值"].apply(parse_market_cap)
-        matched_em_df.to_excel("output/raw_data/sp500_matched_market_data_em.xlsx", index=False)
-        
-        if debug:
-            print(f"成功匹配 {len(matched_em_df)} 家标普500公司（spot_em）")
-        final_df = matched_em_df.copy()
-        matched_symbols_em = set(matched_em_df["代码_CLEAN"])
-        unmatched_em = [s for s in symbols_upper if s not in matched_symbols_em]
-    except Exception as e:
-        print("stock_us_spot_em 接口失败：", e)
-        unmatched_em = list(symbols_upper)
-
-
-    # 第二接口：stock_us_spot
-    matched_df = pd.DataFrame()
-    try:
-        if unmatched_em:
-
-            time.sleep(20)
-    
-            # —— 关键改动：用带退避与校验的安全调用替换原来的直呼 ——
-            spot_df = _call_with_backoff(
-                ak.stock_us_spot,
-                max_retries=4,         # 可按需要调大
-                base_delay=2.0,        # 指数退避底数：2.0^0, 2.0^1, ...
-                jitter=(0.3, 1.2)      # 抖动，避免“羊群效应”
-            )
-    
-            spot_df.to_excel(os.path.join(raw_data_dir, "us_stock_us_spot.xlsx"), index=False)
-    
-            spot_df.columns = spot_df.columns.str.upper()
-            spot_df["代码_CLEAN"] = spot_df["SYMBOL"].astype(str).str.upper().str.replace(r"^\d+\.", "", regex=True)
-    
-            matched_df = spot_df[spot_df["代码_CLEAN"].isin(unmatched_em)].copy()
-            matched_df["MKT_CAP_PARSED"] = matched_df["MKTCAP"].apply(parse_market_cap)
-            matched_df.to_excel("output/raw_data/sp500_matched_market_data.xlsx", index=False)
-    
-            if debug:
-                print(f"补充匹配 {len(matched_df)} 家标普500公司（spot）")
-    
-            final_df = pd.concat([final_df, matched_df], ignore_index=True)
-    except Exception as e:
-        # 不中断主流程，落盘失败信息
-        err_path = os.path.join(raw_data_dir, "sina_fallback_error.txt")
-        with open(err_path, "w", encoding="utf-8") as f:
-            f.write(f"调用 ak.stock_us_spot() 失败（已含退避重试）：{repr(e)}\n")
-        if debug:
-            print("stock_us_spot 接口失败，已跳过：", e)
-
-    
-    # 统一计算未匹配剩余
-    matched_all = set(final_df["代码_CLEAN"]) if "代码_CLEAN" in final_df.columns else set()
+    # 统计未匹配（理论上 yfinance 都能匹配，仍按原逻辑保留）
+    symbols_upper = set(yf_syms)
+    matched_all = set(matched_df["代码_CLEAN"]) if "代码_CLEAN" in matched_df.columns else set()
     unmatched_final = [s for s in symbols_upper if s not in matched_all]
-    
-    # 校验：市值为 0 或空值
+
+    # 校验：市值为 0 或空值（保留原统计）
+    null_stats = {}
     def check_mktcap_issues(df, col_name, label):
         try:
             df = df.copy()
@@ -264,8 +360,6 @@ def get_spy_cap(debug = False):
             col_name_upper = col_name.upper()
 
             if col_name_upper not in df.columns:
-                if debug:
-                    print(f"\n{label} 中未找到市值列 {col_name_upper}，跳过检查。")
                 null_stats[label] = -1
                 return
 
@@ -276,107 +370,25 @@ def get_spy_cap(debug = False):
             null_stats[label] = count
 
             if count > 0:
-                if debug:
-                    print(f"\n{label} 中发现 {count} 条市值为 0 或缺失的记录")
-                display_cols = ['SYMBOL'] if 'SYMBOL' in df.columns else df.columns[:2].tolist()
-                if debug:
-                    print(invalid_df[[col_name_upper] + display_cols].head())
                 invalid_df.to_excel(f"output/raw_data/invalid_mktcap_{label}.xlsx", index=False)
-            else:
-                if debug:
-                    print(f"\n{label} 中市值字段无 0 或缺失")
 
-        except Exception as e:
-            if debug:
-                print(f"检查 {label} 市值时出错：{e}")
+        except Exception:
             null_stats[label] = -1
 
-    if 'matched_em_df' in locals() and not matched_em_df.empty:
-        check_mktcap_issues(matched_em_df, "总市值", "EM接口")
     if 'matched_df' in locals() and not matched_df.empty:
-        check_mktcap_issues(matched_df, "MKTCAP", "SPOT接口")
-
-    # 检查两个接口的匹配数据在市值上的差异
-    def compare_market_cap_between_interfaces(df_em, df_spot):
-        try:
-            # 标准化字段名
-            df_em.columns = df_em.columns.str.upper()
-            df_spot.columns = df_spot.columns.str.upper()
-
-            # 提取代码_CLEAN 字段
-            df_em["代码_CLEAN"] = df_em["代码"].astype(str).str.upper().str.replace(r"^\d+\.", "", regex=True)
-            df_spot["代码_CLEAN"] = df_spot["SYMBOL"].astype(str).str.upper().str.replace(r"^\d+\.", "", regex=True)
-
-            # 限定为在标普500中的公司
-            em_set = set(df_em["代码_CLEAN"]) & symbols_upper
-            spot_set = set(df_spot["代码_CLEAN"]) & symbols_upper
-            common_symbols = em_set & spot_set
-
-            if not common_symbols:
-                if debug:
-                    print("两个接口中无共同的标普500公司，跳过对比")
-                mismatch_stats["count"] = 0
-                return
-
-            # 只保留交集
-            df_em = df_em[df_em["代码_CLEAN"].isin(common_symbols)][["代码_CLEAN", "总市值"]].copy()
-            df_spot = df_spot[df_spot["代码_CLEAN"].isin(common_symbols)][["代码_CLEAN", "MKTCAP"]].copy()
-
-            df_em.columns = ['代码_CLEAN', 'EM_MKTCAP']
-            df_spot.columns = ['代码_CLEAN', 'SPOT_MKTCAP']
-
-            merged_df = pd.merge(df_em, df_spot, on='代码_CLEAN', how='inner')
-            merged_df['EM_MKTCAP'] = pd.to_numeric(merged_df['EM_MKTCAP'], errors='coerce')
-            merged_df['SPOT_MKTCAP'] = pd.to_numeric(merged_df['SPOT_MKTCAP'], errors='coerce')
-
-            # 差异计算
-            merged_df['ABS_DIFF'] = merged_df['EM_MKTCAP'] - merged_df['SPOT_MKTCAP']
-            merged_df['REL_DIFF'] = abs(merged_df['ABS_DIFF']) / merged_df[['EM_MKTCAP', 'SPOT_MKTCAP']].max(axis=1)
-            merged_df['IS_MATCH'] = merged_df['REL_DIFF'] < 0.01
-
-            mismatch_df = merged_df[~merged_df['IS_MATCH']].copy()
-
-            # 统计
-            mismatch_stats["count"] = len(mismatch_df)
-            mismatch_stats["positive"] = mismatch_df[mismatch_df['ABS_DIFF'] > 0]['ABS_DIFF'].sum()
-            mismatch_stats["negative"] = mismatch_df[mismatch_df['ABS_DIFF'] < 0]['ABS_DIFF'].sum()
-
-            if not mismatch_df.empty:
-                mismatch_df.to_excel("output/raw_data/mismatch_market_cap.xlsx", index=False)
-                if debug:
-                    print(f"市值不一致的股票数量：{mismatch_stats['count']}")
-                    print(f"正向差额总和（EM > SPOT）：{mismatch_stats['positive']:,.0f}")
-                    print(f"负向差额总和（EM < SPOT）：{mismatch_stats['negative']:,.0f}")
-            else:
-                if debug:
-                    print("两个接口中标普500公司市值一致（误差 < 1%）")
-
-        except Exception as e:
-            if debug:
-                print(f"比较接口市值差异时出错：{e}")
-            mismatch_stats["count"] = -1
-            
-    if debug and 'spot_em_df' in locals() and 'spot_df' in locals():
-        compare_market_cap_between_interfaces(spot_em_df, spot_df)
+        check_mktcap_issues(matched_df, "MKT_CAP_PARSED", "YF接口")
 
     # 总市值估算
-    total_market_cap = final_df["MKT_CAP_PARSED"].sum()
-    if debug:
-        print(f"\n标普500市值估算：{total_market_cap / 1e9:,.2f} B USD")
+    total_market_cap = pd.to_numeric(final_df["MKT_CAP_PARSED"], errors="coerce").sum()
 
     final_df.to_excel("output/raw_data/merged_us_sp500_market_cap.xlsx", index=False)
-    if debug:
-        print("合并结果已保存至：output/raw_data/merged_us_sp500_market_cap.xlsx")
 
     summary_path = "output/raw_data/summary.txt"
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write(f"标普500市值估算汇总\n")
         f.write(f"--------------------------\n")
-        f.write(f"接口一（spot_em）匹配数：{len(matched_em_df) if 'matched_em_df' in locals() else 0}\n")
-        f.write(f"接口二（spot）补充匹配数：{len(matched_df) if 'matched_df' in locals() else 0}\n")
-        f.write(f"合并后总数（去重可能有误差）：{len(final_df)}\n")
+        f.write(f"合并后总数：{len(final_df)}\n")
         f.write(f"总市值估算：{total_market_cap / 1e9:,.2f} B USD\n")
-        f.write(f"首次未匹配数量：{len(unmatched_em)}\n")
         f.write(f"最终仍未匹配数量：{len(unmatched_final)}\n")
 
         # 市值为 0 或缺失统计
@@ -387,17 +399,12 @@ def get_spy_cap(debug = False):
             elif count == 0:
                 f.write(f" - {label}：无缺失\n")
 
-        # 市值差异统计
-        if "count" in mismatch_stats:
-            if mismatch_stats["count"] > 0:
-                f.write(f"\n市值不一致记录数：{mismatch_stats['count']}\n")
-                f.write(f"   - 正向差额：{mismatch_stats['positive']:,.0f}\n")
-                f.write(f"   - 负向差额：{mismatch_stats['negative']:,.0f}\n")
-            elif mismatch_stats["count"] == 0:
-                f.write("\n接口市值完全一致\n")
-    
     spy_cap = f'{total_market_cap / 1e9:,.0f} B USD'
-    
+
+    # —— 日志：记录方法统计 —— 
+    method_counts = caps_df["method"].value_counts().to_dict()
+    logging.info(f"S&P500 method stats: {method_counts}")
+
     return spy_cap
 
 
@@ -421,6 +428,3 @@ def main():
     
 if __name__ == '__main__':
     main()
-
-
-

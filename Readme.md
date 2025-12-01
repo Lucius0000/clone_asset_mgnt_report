@@ -1,7 +1,8 @@
 ### 一、`asset_mgnt_report`项目概述
 - 执行`main.py`即可调用各个子脚本，获取CPI、GDP、货币利率、货币利差、股票权益、债券、商品与贵金属、货币汇率等数据，并输出在`output`子文件夹。
 - 执行`Gainer.py`，调用四个资产大类的Gainer计算脚本，并输出总结表格在`output`子文件夹。
-- 需要单独执行`整体.py`，计算Sharpe Ratio、 Top Gainer，输出`周报-资产大类表现-整体`表格在`output`子文件夹。
+- 需要单独执行`整体.py`，计算Sharpe Ratio，输出`周报-资产大类表现-整体`表格在`output`子文件夹。
+- 执行 `stock_us_cn_hk/market_report_china_hk_2weeks.py`，计算二级市场的股票数据，输出在该子文件夹下。
 
 ### 二、前置准备
 
@@ -9,7 +10,8 @@
 
 > 已经设置了文件名正则匹配，更新文件后不需要修改代码
 
-- 香港CPI [政府統計處 : 表510-60001：消費物價指數（2019年10月至2020年9月 = 100）](https://www.censtatd.gov.hk/tc/web_table.html?id=510-60001)
+- 香港CPI [政府統計處 : 表510-60001：消費物價指數（2019年10月至2020年9月 = 100）](https://www.censtatd.gov.hk/tc/web_table.html?full_series=1&id=510-60001#)
+- - 需要选择“完整数列”，下载长周期的完整数据；同时删去按年计算的CPI，仅保留按月计算的CPI结果
 ![CPI_HK 获取图](assets/CPI_HK.png)
 
 - 恒生指数成分股 [指數及成份股 - 指數成份股 - 恆生指數](http://www.aastocks.com/tc/stocks/market/index/hk-index-con.aspx?index=HSI)
@@ -28,11 +30,17 @@
 - 2.2 还需要把`output`文件夹下的汇率表`fx_metrics.xlsx`复制到`整体.xlsx`的sheet2
 - 2.3 然后单独执行`整体.py`，计算Sharpe Ratio、 Top Gainer，输出`周报-资产大类表现-整体`表格在`output`子文件夹。
 
+#### 3.FRED_API_KEY
+- 有些脚本要从 FRED 获取数据，就要先获取 FRED 的 API Key 并写入环境变量，应当设置的环境变量名称为 `FRED_API_KEY`
+- FRED_API 申请网址： [FRED_API_KEYS](https://fredaccount.stlouisfed.org/apikeys)
+
 ### 三、文件结构：
 - asset_mgnt_report
 - - main.py
 - - 整体.py
-- - other codes
+- - Gainer.py
+- - requirements.txt ，需要提前安装的 Python 第三方库
+- - stock_us_cn_hk文件夹，执行其中脚本，输出结果为周报的 “二级市场”
 - - output文件夹，存放输出结果
 - - - raw_data文件夹，存放原始数据，便于debug、cross validation
 - - data文件夹，存放脚本无法获取、需要手动下载的数据

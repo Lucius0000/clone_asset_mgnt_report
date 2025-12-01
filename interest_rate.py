@@ -14,6 +14,7 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import warnings
+import requests
 
 warnings.filterwarnings("ignore")
 
@@ -49,6 +50,44 @@ logger = logging.getLogger("interest_rate")
 
 
 # ----------------------------
+# FRED 数据获取
+# ----------------------------
+def get_effr_from_fred(start=None, end=None, series_id="DFF"):
+    """
+    获取 EFFR:
+      - 日频：series_id="DFF"
+      - 月均：series_id="FEDFUNDS"
+    参数:
+      start/end: 'YYYY-MM-DD' 字符串或 None
+    返回:
+      pandas.DataFrame，索引为 date，列名为 series_id
+    """
+    api_key = os.getenv("FRED_API_KEY")
+    if not api_key:
+        raise RuntimeError("请先在环境变量中设置 FRED_API_KEY")
+
+    url = "https://api.stlouisfed.org/fred/series/observations"
+    params = {
+        "series_id": series_id,
+        "api_key": api_key,
+        "file_type": "json",
+        "observation_start": start or "",
+        "observation_end": end or "",
+    }
+    r = requests.get(url, params=params, timeout=30)
+    r.raise_for_status()
+    data = r.json()["observations"]
+
+    df = pd.DataFrame(data)[["date", "value"]]
+    # 转成数值；FRED 缺失用 "."
+    df["value"] = pd.to_numeric(df["value"].replace(".", pd.NA), errors="coerce")
+    df["date"] = pd.to_datetime(df["date"])
+    df = df.dropna().set_index("date").sort_index()
+    df.rename(columns={"value": series_id}, inplace=True)
+    return df
+
+
+# ----------------------------
 # 数据获取
 # ----------------------------
 def get_interest_rate_data():
@@ -57,8 +96,17 @@ def get_interest_rate_data():
     返回: 包含各国利率数据的字典
     """
     try:
-        # 美国：联邦基金利率（表头通常为 '日期'、'今值'）
-        us_rate_fed = ak.macro_bank_usa_interest_rate().tail(50)
+        # 美国：联邦基金利率 - 改为 FRED 的日频 EFFR（series_id="DFF"）
+        # 为了与后续流程兼容，统一转换为列名：'日期'、'今值'
+        us_effr = get_effr_from_fred(series_id="DFF")
+        us_rate_fed = (
+            us_effr.rename_axis("日期")
+            .reset_index()
+            .rename(columns={"DFF": "今值"})
+            .dropna()
+            .sort_values("日期")
+            .tail(2000)  # 留足近些年的窗口
+        )
 
         # 中国：使用 LPR 一年期替代基准利率（确保列为 '日期'、'今值'）
         cn_lpr_all = ak.macro_china_lpr()
@@ -163,6 +211,11 @@ def calculate_interest_rate_metrics(rate_data):
                 date_col = "报告日"
                 is_fed_like = False
 
+            # --- 使美国 EFFR（US_fed）与“其他日频（非 LPR）”口径一致：采用通用窗口匹配 ---
+            if metric == "US_fed":
+                # 强制走“通用日频”分支逻辑（但仍保留列名 '日期' / '今值'）
+                is_fed_like = False
+
             # 转换日期、按时间倒序
             data = data.copy()
             data[date_col] = pd.to_datetime(data[date_col])
@@ -201,23 +254,7 @@ def calculate_interest_rate_metrics(rate_data):
             }
 
             # ---------------- MoM ----------------
-            if is_fed_like and metric == "US_fed":
-                # 使用上一条记录作为环比基准（而非“上一不同值”）
-                if len(valid) >= 2 and float(valid.iloc[1][value_col]) != 0:
-                    prev_row = valid.iloc[1]
-                    prev_val = float(prev_row[value_col])
-                    result["mom"] = (current_value - prev_val) / prev_val
-                    logger.info(
-                        "MoM[US_fed]：当前=%.6f@%s，上一条=%.6f@%s，MoM=%.6f",
-                        current_value,
-                        current_date.date(),
-                        prev_val,
-                        pd.to_datetime(prev_row[date_col]).date(),
-                        result["mom"],
-                    )
-                else:
-                    logger.info("MoM[US_fed]：缺少上一条记录或上一值为0，跳过")
-            elif metric == "CN_lpr_1m":
+            if is_fed_like and metric == "CN_lpr_1m":
                 # LPR 月度发布时间约每月20日：用 ±10 天窗口，在目标月附近取最近
                 target_date = current_date - pd.DateOffset(days=30)
                 window = data[
@@ -263,16 +300,16 @@ def calculate_interest_rate_metrics(rate_data):
                     logger.info("MoM[通用]：窗口无有效点，或上一值为0，跳过")
 
             # ---------------- YoY ----------------
-            if is_fed_like:
-                # Fed：近似选 350 天前（季度公告更稳）
-                target_date = current_date - pd.DateOffset(days=350)
+            if is_fed_like and metric == "CN_lpr_1m":
+                # 同 LPR：365 天前 ±10 天（保持与原脚本一致）
+                target_date = current_date - pd.DateOffset(days=365)
                 yoy_window = data[
-                    (data[date_col] >= target_date - pd.DateOffset(months=1))
-                    & (data[date_col] <= target_date)
+                    (data[date_col] >= target_date - pd.DateOffset(days=10))
+                    & (data[date_col] <= target_date + pd.DateOffset(days=10))
                     & (data[value_col].notna())
                 ]
             else:
-                # 同业拆借：365 天前 ±10 天
+                # 通用：365 天前 ±10 天（US_fed 也走这一口径）
                 target_date = current_date - pd.DateOffset(days=365)
                 yoy_window = data[
                     (data[date_col] >= target_date - pd.DateOffset(days=10))
@@ -298,14 +335,14 @@ def calculate_interest_rate_metrics(rate_data):
             five_years_ago = current_date - pd.DateOffset(years=5)
             five_year_data = data[(data[date_col] >= five_years_ago) & (data[value_col].notna())].copy()
 
-            if is_fed_like:
-                # 季度末取最后一个：'Q'（修复原 'QE'）
+            if is_fed_like and metric == "CN_lpr_1m":
+                # LPR：月末取最后一个
                 if not five_year_data.empty:
                     five_year_data = (
-                        five_year_data.set_index(date_col).resample("Q").last().reset_index()
+                        five_year_data.set_index(date_col).resample("M").last().reset_index()
                     )
             else:
-                # 月末取最后一个：'M'（修复原 'ME'）
+                # 通用（日频，包括 US_fed）：月末取最后一个
                 if not five_year_data.empty:
                     five_year_data = (
                         five_year_data.set_index(date_col).resample("M").last().reset_index()
@@ -355,7 +392,7 @@ def calculate_interest_rate_metrics(rate_data):
 # ----------------------------
 def map_interest_format(row):
     mapping = {
-        "US_fed": ("美国", "USD", "US Federal Fund Rate"),
+        "US_fed": ("美国", "USD", "US Effective Federal Funds Rate (O/N)"),
         "CN_lpr_1m": ("中国", "CNY", "中国央行LPR 1年"),
         "CN_interbank_1d": (None, "CNY", "Chibor 隔夜"),
         "CN_interbank_1m": (None, "CNY", "Chibor 1月"),
@@ -490,4 +527,3 @@ def main(debug: bool = False):
 
 if __name__ == "__main__":
     main(debug=False)
-

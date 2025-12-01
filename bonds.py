@@ -76,7 +76,7 @@ def _resolve_sse_date() -> str:
 
     # 3) 交互输入
     try:
-        user_in = input("请输入数据收盘日期，需要周中交易日，回车则选择昨天：").strip()
+        user_in = input("请输入数据收盘日期，需要周中交易日，回车则选择昨天，yyyymmdd：").strip()
         if user_in and user_in.isdigit() and len(user_in) == 8:
             return user_in
     except Exception:
